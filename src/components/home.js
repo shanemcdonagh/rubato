@@ -2,7 +2,9 @@ import { Component } from "react";
 
 class Home extends Component {
     render() {
+        return (
             <p>This is the Home Page (where certain artists and albums will be displayed)</p>
+        );
     }
 }
 
