@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  color: white;
+}
+
+.navbar{
+  background-color: black;
 }
 
 .App-logo {

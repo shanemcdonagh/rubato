@@ -27,16 +27,9 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
-            <img src='./simplelogo.png' alt='rubitologo' />
-            <p>
-              Rubito
-            </p>
-            <a>Your taste, your music</a>
-          </header>
-
           {/* NavBar - For easy navigation throughout the application */}
-          <Navbar expand="lg" variant="dark" bg="dark">
+          <Navbar expand="lg" variant="dark">
+          <a class="navbar-brand"><img src='./logo.png' width="100px"alt='fulllogo'/></a>
             <Container className="buttons">
               <Button variant="dark" href="/">Home</Button>
               <Button variant="dark" href="/lists">Lists</Button>
@@ -52,6 +45,14 @@ class App extends Component {
             <Route path='/diary' element={<Diary/>} />
             <Route path='/profile' element={<Profile/>} />
           </Routes>
+
+          <header className="App-header">
+            <img src='./simplelogo.png' alt='rubitologo' />
+            <p>Rubito</p>
+            <p>Your taste, your music</p>
+          </header>
+
+          
         </div>
       </Router>
     );
