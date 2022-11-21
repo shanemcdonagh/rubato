@@ -3,7 +3,7 @@ import { Component } from "react";
 class Diary extends Component {
     render() {
         return (
-            <p>This is the Diary Page (where recent activity and reviews will be displayed)</p>
+            <div className="content"><p>This is the Diary Page (where recent activity and reviews will be displayed)</p></div>
         );
 
     }

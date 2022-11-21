@@ -2,10 +2,19 @@
   text-align: center;
   background-color: #282c34;
   color: white;
+
+  /* Controls the display of components next to the sidebar */
+  display:flex;
+  flex-direction:row;
 }
 
 .navbar{
   background-color: black;
+}
+/* Controls the spacing of the components next to the sidebar */
+.content{
+  margin-left: 30%;
+  margin-top: 15%;
 }
 
 .App-logo {
