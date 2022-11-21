@@ -1,0 +1,9 @@
+CDBSidebar{
+    text-align: center;
+}
+
+.sidebar-content{
+    display: 'flex';
+    height: '100vh';
+    color: aquamarine;
+}
