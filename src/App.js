@@ -20,7 +20,6 @@ import Profile from './components/pages/profile';
 import Sidebar from './components/sidebar';
 import Search from './components/pages/search';
 
-
 // App class - extends Component class
 class App extends Component {
   // Visual content - Method

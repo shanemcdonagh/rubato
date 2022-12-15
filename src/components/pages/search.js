@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FormControl, Card, Row, Container, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import axios from "axios";
 
 
 class Search extends Component {
@@ -11,6 +12,17 @@ class Search extends Component {
         this.state = {
             search: ""
         };
+    }
+
+    search()
+    {
+        axios.get('http://localhost:4000/search/bruh')
+        .then((response) => {
+            console.log("Wow")
+        })
+        .catch((error) => {
+            console.log("Cannot retrieve information from server");
+        })
     }
 
     render() {
@@ -27,7 +39,7 @@ class Search extends Component {
                     // When the value of the form changes, update the value of the search field
                     onChange={event => this.setState({ search: event.target.value })}
                 />
-                <Button variant="outline-danger" onClick={() => { console.log("Button click") }}>Search</Button>
+                <Button variant="outline-danger" onClick={() => { this.search() }}>Search</Button>
             </InputGroup>
             <div className="content">
                 <Container>
