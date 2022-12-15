@@ -8,8 +8,7 @@ import Lists from './components/pages/lists';
 // Bootstrap - Requirements
 // Bootstrap - Used to provide CSS styling to Bootstrap components
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
+import { Navbar, Form, Card, Row, Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 
@@ -26,46 +25,42 @@ class App extends Component {
   // Visual content - Method
   render() {
     return (
-      <Router>
-       
+        <Router>
+          <div className="App">
 
+            {/* NavBar - For easy navigation throughout the application */}
+            <Navbar expand="lg" variant="dark">
+              <img src='./simplelogo.png' style={{ width: '30px', marginLeft: "30px" }} alt='fulllogo' />
+              <Form className="d-flex" style={{ marginLeft: "45%" }}>
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-danger">Search</Button>
+              </Form>
+            </Navbar>
 
-        <div className="App">
-          {/* NavBar - For easy navigation throughout the application */}
-          <Navbar expand="lg" variant="dark">
-          <img src='./simplelogo.png' style={{ width: '30px', marginLeft: "30px" }} alt='fulllogo' />
-          <Form className="d-flex" style={{ marginLeft: "45%" }}>
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-danger">Search</Button>
-          </Form>
-        </Navbar>
+            <div className='component-view'>
+              <Sidebar />
 
-          <div className='component-view'>
-            <Sidebar />
-
-            {/* <header className="App-header">
+              {/* <header className="App-header">
             <img src='./simplelogo.png' alt='rubitologo' />
             <p>Rubito</p>
             <p>Your taste, your music</p>
           </header> */}
 
-            {/* Switches between the local components */}
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/lists' element={<Lists />} />
-              <Route path='/diary' element={<Diary />} />
-              <Route path='/profile' element={<Profile />} />
-            </Routes>
-
+              {/* Switches between the local components */}
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/lists' element={<Lists />} />
+                <Route path='/diary' element={<Diary />} />
+                <Route path='/profile' element={<Profile />} />
+              </Routes>
+            </div>
           </div>
-
-        </div>
-      </Router>
+        </Router>
     );
   }
 }
