@@ -29,16 +29,19 @@ class Sidebar extends Component {
 
                     <CDBSidebarContent className="sidebar-content">
                         <CDBSidebarMenu>
-                            <NavLink exact to="/" activeClassName="activeClicked">
+                            <NavLink to="/search">
+                                <CDBSidebarMenuItem icon="search">Search</CDBSidebarMenuItem>
+                            </NavLink>
+                            <NavLink to="/">
                                 <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
                             </NavLink>
-                            <NavLink exact to="/lists" activeClassName="activeClicked">
+                            <NavLink to="/lists">
                                 <CDBSidebarMenuItem icon="list">Lists</CDBSidebarMenuItem>
                             </NavLink>
-                            <NavLink exact to="/diary" activeClassName="activeClicked">
+                            <NavLink to="/diary">
                                 <CDBSidebarMenuItem icon="pen">Diary</CDBSidebarMenuItem>
                             </NavLink>
-                            <NavLink exact to="/profile" activeClassName="activeClicked">
+                            <NavLink to="/profile">
                                 <CDBSidebarMenuItem icon="user">Profile</CDBSidebarMenuItem>
                             </NavLink>
                         </CDBSidebarMenu>

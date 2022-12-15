@@ -18,6 +18,7 @@ import Home from './components/pages/home';
 import Diary from './components/pages/diary';
 import Profile from './components/pages/profile';
 import Sidebar from './components/sidebar';
+import Search from './components/pages/search';
 
 
 // App class - extends Component class
@@ -30,16 +31,8 @@ class App extends Component {
 
             {/* NavBar - For easy navigation throughout the application */}
             <Navbar expand="lg" variant="dark">
-              <img src='./simplelogo.png' style={{ width: '30px', marginLeft: "30px" }} alt='fulllogo' />
-              <Form className="d-flex" style={{ marginLeft: "45%" }}>
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-danger">Search</Button>
-              </Form>
+              <img src='./simplelogo.png' style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
+              <b>Rubato</b>
             </Navbar>
 
             <div className='component-view'>
@@ -57,6 +50,7 @@ class App extends Component {
                 <Route path='/lists' element={<Lists />} />
                 <Route path='/diary' element={<Diary />} />
                 <Route path='/profile' element={<Profile />} />
+                <Route path='/search' element={<Search />} />
               </Routes>
             </div>
           </div>

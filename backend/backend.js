@@ -34,14 +34,14 @@ app.use(function (req, res, next) {
 // Used to connect to our MongoDB database
 const connectionString = "mongodb+srv://admin:admin@cluster0.cehtzag.mongodb.net/?retryWrites=true&w=majority"
 
-// Asynchronous function
-async function main() {
-    // Connect to the database
-    mongoose.connect(connectionString, { useNewUrlParser: true });
-}
+// // Asynchronous function
+// async function main() {
+//     // Connect to the database
+//     mongoose.connect(connectionString, { useNewUrlParser: true });
+// }
 
 // Log an error if one occurs when connecting to the database
-main().catch(err => console.log(err));
+//main().catch(err => console.log(err));
 
 // Server begins listening through port 4000, handles requests from port 3000 (our music application)
 app.listen(port, (req, res) => {
