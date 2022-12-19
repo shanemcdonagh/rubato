@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormControl, Card, Row, Container, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import Albums from "../albums/albums";
 
 
 class Search extends Component {
@@ -18,7 +19,7 @@ class Search extends Component {
     search() {
         axios.get('http://localhost:4000/search/' + this.state.search)
             .then((response) => {
-                this.state.albums = response.data;
+                this.setState({albums: response.data})
                 console.log(this.state.albums)
             })
             .catch((error) => {
@@ -44,28 +45,9 @@ class Search extends Component {
                 />
                 <Button variant="outline-danger" onClick={() => { this.search() }}>Search</Button>
             </InputGroup>
-            <div className="content">
-                <Container>
-                    <Row className="mx-2 row row-col-4">
-                        {albums.map((album, i) => {
-                            <Card
-                                bg="dark"
-                                text="danger"
-                                style={{ width: '18rem' }}
-                                className="mb-2">
-                                <Card.Header>Artist</Card.Header>
-                                <Card.Body>
-                                    <Card.Title></Card.Title>
-                                    <Card.Text>
-                                        Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        })}
-                    </Row>
-                </Container>
-            </div>
+           <div>
+           <Albums albums={this.state.albums}></Albums>
+           </div>
         </div>
         );
     }
