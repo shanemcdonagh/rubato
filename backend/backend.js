@@ -4,13 +4,15 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const fetch = require('node-fetch-commonjs')
+//const fetch = require('node-fetch-commonjs')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 
 // Specify port for server to run on
 const port = 4000;
 
 const path = require('path');
+const { response } = require('express');
 app.use(express.static(path.join(__dirname, '../build')));
 app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
@@ -41,10 +43,14 @@ const CLIENT_ID = "8c250eca34024595ada9aa262e1cf257";
 const CLIENT_SECRET = "92afd8890b4645aeb4c683bb5bdc0815";
 var accessToken = "";
 
-// -- Authentication Parameter so retrieve data from Spotify API --
+// Asynchronous function
+async function main() {
+    // Connect to the database
+   // mongoose.connect(connectionString, { useNewUrlParser: true });
 
-// Used to retrieve retrieve a Spotify API access token
-var authenticationParams = {
+   // Retrieve Spotify API Access Token (Promise)
+   // Used to retrieve retrieve a Spotify API access token
+   var authenticationParams = {
     method: 'POST',
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -52,23 +58,10 @@ var authenticationParams = {
     body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
 }
 
-var artistParams = {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-    },
-}
+   fetch('https://accounts.spotify.com/api/token', authenticationParams)
+   .then(result => result.json())
+   .then(data => accessToken = data.access_token)
 
-// // Asynchronous function
-async function main() {
-    // Connect to the database
-   // mongoose.connect(connectionString, { useNewUrlParser: true });
-
-   // Retrieve Spotify API Access Token (Promise)
-//    fetch('https://accounts.spotify.com/api/token', authenticationParams)
-//    .then(result => result.json())
-//    .then(data => accessToken = data.access_token )
 }
 
 // Log an error if one occurs when connecting to the database or from the Spotify API
@@ -83,7 +76,15 @@ app.listen(port, (req, res) => {
 // https://developer.spotify.com/console/get-search-item/
 app.get('/search/:artist', async (req, res) => {
 
-    // Retrieve the artist id
-    var artistId = await fetch('https://api.spotify.com/v1/search')
-    console.log("Artist Name: " + req.params.artist);
+    var artistParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }
+    
+    var artistId = await fetch('https://api.spotify.com/v1/search?q=' + req.params.artist + '&type=artist', artistParams)
+    .then(response => response.json())
+    .then(data => console.log(data))
 })

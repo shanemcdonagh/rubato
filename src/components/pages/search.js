@@ -16,7 +16,7 @@ class Search extends Component {
 
     search()
     {
-        axios.get('http://localhost:4000/search/ ' + this.state.search)
+        axios.get('http://localhost:4000/search/' + this.state.search)
         .then((response) => {
             console.log(this.state.search)
         })
