@@ -6,23 +6,24 @@ import axios from "axios";
 
 class Search extends Component {
     // https://reactjs.org/docs/hooks-state.html
-    // Initially ensures search value is empty
+    // Initially ensures search value and card values are empty
     constructor(props) {
         super(props);
         this.state = {
-            search: ""
+            search: "",
+            albums: []
         };
     }
 
-    search()
-    {
+    search() {
         axios.get('http://localhost:4000/search/' + this.state.search)
-        .then((response) => {
-            console.log(this.state.search)
-        })
-        .catch((error) => {
-            console.log("Cannot retrieve information from server");
-        })
+            .then((response) => {
+                this.state.albums = response.data;
+                console.log(this.state.albums)
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve information from server");
+            })
     }
 
     render() {
@@ -34,8 +35,7 @@ class Search extends Component {
                     className="me-2"
                     aria-label="Search"
                     onKeyDown={event => {
-                        if(event.key == "Enter")
-                        {
+                        if (event.key == "Enter") {
                             this.search();
                         }
                     }}
@@ -47,20 +47,22 @@ class Search extends Component {
             <div className="content">
                 <Container>
                     <Row className="mx-2 row row-col-4">
-                        <Card
-                            bg="dark"
-                            text="danger"
-                            style={{ width: '18rem' }}
-                            className="mb-2">
-                            <Card.Header>Artist</Card.Header>
-                            <Card.Body>
-                                <Card.Title></Card.Title>
-                                <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        {albums.map((album, i) => {
+                            <Card
+                                bg="dark"
+                                text="danger"
+                                style={{ width: '18rem' }}
+                                className="mb-2">
+                                <Card.Header>Artist</Card.Header>
+                                <Card.Body>
+                                    <Card.Title></Card.Title>
+                                    <Card.Text>
+                                        Some quick example text to build on the card title and make up the
+                                        bulk of the card's content.
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        })}
                     </Row>
                 </Container>
             </div>

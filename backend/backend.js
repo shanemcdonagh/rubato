@@ -73,7 +73,6 @@ app.listen(port, (req, res) => {
 });
 
 // Listens for a GET request to '/search/:artistName'
-// https://developer.spotify.com/console/get-search-item/
 app.get('/search/:artist', async (req, res) => {
 
     var artistParams = {
@@ -84,7 +83,13 @@ app.get('/search/:artist', async (req, res) => {
         },
     }
     
-    var artistId = await fetch('https://api.spotify.com/v1/search?q=' + req.params.artist + '&type=artist', artistParams)
+    // Retrieve the first artist id related to the what was searched (https://developer.spotify.com/console/get-search-item/)
+    var artistId = await fetch(`https://api.spotify.com/v1/search?q=${req.params.artist}&type=artist`, artistParams)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => { return data.artists.items[0].id })
+
+    // Retrieve album metadata based on artist id (https://developer.spotify.com/console/get-artist-albums/)
+    var albumData = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&market=US&limit=50`, artistParams)
+    .then(response => response.json())
+    .then(data => res.status(200).json(data.items))   
 })
