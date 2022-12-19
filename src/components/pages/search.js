@@ -16,9 +16,9 @@ class Search extends Component {
 
     search()
     {
-        axios.get('http://localhost:4000/search/bruh')
+        axios.get('http://localhost:4000/search/ ' + this.state.search)
         .then((response) => {
-            console.log("Wow")
+            console.log(this.state.search)
         })
         .catch((error) => {
             console.log("Cannot retrieve information from server");
@@ -34,7 +34,10 @@ class Search extends Component {
                     className="me-2"
                     aria-label="Search"
                     onKeyDown={event => {
-                        console.log("Hey")
+                        if(event.key == "Enter")
+                        {
+                            this.search();
+                        }
                     }}
                     // When the value of the form changes, update the value of the search field
                     onChange={event => this.setState({ search: event.target.value })}

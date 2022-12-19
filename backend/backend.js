@@ -41,6 +41,8 @@ const CLIENT_ID = "8c250eca34024595ada9aa262e1cf257";
 const CLIENT_SECRET = "92afd8890b4645aeb4c683bb5bdc0815";
 var accessToken = "";
 
+// -- Authentication Parameter so retrieve data from Spotify API --
+
 // Used to retrieve retrieve a Spotify API access token
 var authenticationParams = {
     method: 'POST',
@@ -48,6 +50,14 @@ var authenticationParams = {
         'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+}
+
+var artistParams = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + accessToken
+    },
 }
 
 // // Asynchronous function
@@ -70,6 +80,10 @@ app.listen(port, (req, res) => {
 });
 
 // Listens for a GET request to '/search/:artistName'
-app.get('/search/:artist', (req, res) => {
+// https://developer.spotify.com/console/get-search-item/
+app.get('/search/:artist', async (req, res) => {
+
+    // Retrieve the artist id
+    var artistId = await fetch('https://api.spotify.com/v1/search')
     console.log("Artist Name: " + req.params.artist);
 })
