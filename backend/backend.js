@@ -93,3 +93,20 @@ app.get('/search/:artist', async (req, res) => {
     .then(response => response.json())
     .then(data => res.status(200).json(data.items))   
 })
+
+// Listens for a GET request to '/browse/categories'
+app.get('/home', async (req, res) => {
+
+    var categoryParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }
+    
+    // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
+    var categories = await fetch(`https://api.spotify.com/v1/browse/categories`, categoryParams)
+    .then(response => response.json())
+    .then(data => {res.status(200).json(data.items)})
+})
