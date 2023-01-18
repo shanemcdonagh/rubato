@@ -2,6 +2,12 @@ import axios from "axios";
 import React, { Component } from "react";
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            categories: []
+        };
+    }
 
 
     componentDidMount(){
@@ -10,7 +16,8 @@ class Home extends Component {
         // Axios - Promise based HTTP client
         axios.get('http://localhost:4000/home')
             .then((response) => {
-                console.log(response);
+                this.setState({categories: response.data})
+                console.log(this.state.categories);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server");

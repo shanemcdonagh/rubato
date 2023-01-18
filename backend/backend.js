@@ -108,5 +108,5 @@ app.get('/home', async (req, res) => {
     // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
     var categories = await fetch(`https://api.spotify.com/v1/browse/categories`, categoryParams)
     .then(response => response.json())
-    .then(data => {res.status(200).json(data.items)})
+    .then(data => {res.status(200).json(data.categories.items)})
 })
