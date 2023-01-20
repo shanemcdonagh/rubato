@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import Categories from "../categories/categories";
 
 class Home extends Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class Home extends Component {
         axios.get('http://localhost:4000/home')
             .then((response) => {
                 this.setState({categories: response.data})
-                console.log(this.state.categories);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server");
@@ -27,9 +27,9 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="content">
-                <p>This is the Home Page (where certain artists and albums will be displayed)</p>
-            </div>      
+            <div>
+                <Categories categories={this.state.categories}></Categories>
+            </div>  
         );
     }
 }
