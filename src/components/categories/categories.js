@@ -10,7 +10,7 @@ class Categories extends Component {
     // Method - Visual content of the component
     render() {
         return (
-            <div className='content'>
+            <div className='categories'>
                 <Container>
                 <Row className="mx-2 row row-col-4">
                     {this.props.categories.map((category) => {

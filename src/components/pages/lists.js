@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import Button from 'react-bootstrap/Button';
+import {Modal, Button, Form} from 'react-bootstrap';
 
 // Lists will showcase all lists that have been created by a given user
 class Lists extends Component {
 
-    // Reference: https://react-bootstrap.github.io/components/modal/
-    // Allows us to add a new list to our lists page
-    // [show, setShow]  useState(false);
-    // handleClose = () => setShow(false);
-    // handleShow = () => setShow(true);
-     // https://reactjs.org/docs/hooks-state.html
-    // Initially ensures search value and card values are empty
+    // Reference: https://www.geeksforgeeks.org/how-to-change-the-state-of-react-component-on-click/
+    // Initial way of changing state from a button click was causing the website to slow to a halt
+    // This solution fixes this problem in particular
     constructor(props) {
         super(props);
         this.state = {
@@ -22,14 +18,36 @@ class Lists extends Component {
     }
 
     handleClick() {
-        // Changing state
-        this.setState({setShow : true})
+        if(!this.state.setShow)
+        {
+            this.setState({ setShow: true })
+        }
+        else
+        {
+            this.setState({ setShow: false })
+        }     
     }
 
     render() {
-        return (<div className="content">
-            <p>This is the Lists Page (where albums you want to listen later and organise are)</p>
-            <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
+        return (
+            <div className="content">
+                 <div className="listButton">
+                    <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
+                 </div>
+               
+                <Modal className="modal" show={this.state.setShow} onHide={this.handleClick} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title center>Create a new list</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {/* Form - To allow us to add to the collection of lists that a user may have */}
+                        <Form.Group className="mb-3" controlId="formBasicList">
+                            <Form.Label>List</Form.Label>
+                            <Form.Control placeholder="New list name" />
+                        </Form.Group>
+                        <Button variant="danger" type="submit">Submit</Button>
+                    </Modal.Body>
+                </Modal>
             </div>
         );
     }

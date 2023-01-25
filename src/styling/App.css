@@ -19,6 +19,19 @@
   margin-top: 15%;
 }
 
+.categories{
+  margin-top: 5vh;
+}
+
+.listButton{
+  margin-top: 50vh;
+  margin-left: 10vh;
+}
+
+.modal{
+  margin-left: 20vh;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

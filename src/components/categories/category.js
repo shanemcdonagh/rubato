@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Row, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 class Category extends Component {
     render() {
@@ -7,7 +7,7 @@ class Category extends Component {
                 <Card
                     bg="dark"
                     text="danger"
-                    style={{ width: '18rem' }}
+                    style={{ width: '18rem', marginRight: '10vh' }}
                     className="mb-2">
                     <Card.Header>{this.props.category.name}</Card.Header>
                     <Card.Body>

@@ -29,7 +29,8 @@ class Search extends Component {
 
     render() {
         return (<div>
-            <InputGroup className="mb-3" size="lg" style={{ marginTop: '5vh', marginLeft: '50vh' }}>
+            <div>
+            <InputGroup className="mb-3" size="lg" style={{ marginTop: '5vh', marginLeft: '35vh' }}>
                 <FormControl
                     type="search"
                     placeholder="Search"
@@ -45,6 +46,7 @@ class Search extends Component {
                 />
                 <Button variant="outline-danger" onClick={() => { this.search() }}>Search</Button>
             </InputGroup>
+            </div>
            <div>
            <Albums albums={this.state.albums}></Albums>
            </div>
