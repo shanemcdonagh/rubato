@@ -19,6 +19,7 @@ import Diary from './components/pages/diary';
 import Profile from './components/pages/profile';
 import Sidebar from './components/sidebar';
 import Search from './components/pages/search';
+import AlbumDetails from './components/albums/albumDetails';
 
 // App class - extends Component class
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
                 <Route path='/diary' element={<Diary />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/search' element={<Search />} />
+                <Route path='/album/:albumId' element={<AlbumDetails />} />
               </Routes>
             </div>
           </div>

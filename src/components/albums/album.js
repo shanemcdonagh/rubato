@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Row, Container } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 
 class Album extends Component {
     render() {
@@ -13,6 +14,9 @@ class Album extends Component {
                     <Card.Body>
                         <Card.Img src={this.props.album.images[0].url} />
                         <Card.Title>{this.props.album.name}</Card.Title>
+                        <NavLink to={"/album/" + this.props.album.id}>
+                                <Button variant="danger">View Album</Button>
+                            </NavLink>
                     </Card.Body>
                 </Card>
         )
