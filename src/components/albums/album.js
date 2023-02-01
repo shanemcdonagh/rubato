@@ -16,7 +16,7 @@ class Album extends Component {
                         <Card.Title>{this.props.album.name}</Card.Title>
                         <NavLink to={"/album/" + this.props.album.id}>
                                 <Button variant="danger">View Album</Button>
-                            </NavLink>
+                        </NavLink>
                     </Card.Body>
                 </Card>
         )

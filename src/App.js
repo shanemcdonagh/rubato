@@ -8,8 +8,7 @@ import Lists from './components/pages/lists';
 // Bootstrap - Requirements
 // Bootstrap - Used to provide CSS styling to Bootstrap components
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Form, Card, Row, Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import { Navbar } from 'react-bootstrap';
 
 
 // Allows for dynamic routing and switching between components
@@ -20,6 +19,8 @@ import Profile from './components/pages/profile';
 import Sidebar from './components/sidebar';
 import Search from './components/pages/search';
 import AlbumDetails from './components/albums/albumDetails';
+import Login from './components/user/login';
+import Register from './components/user/register';
 
 // App class - extends Component class
 class App extends Component {
@@ -47,6 +48,8 @@ class App extends Component {
               {/* Switches between the local components */}
               <Routes>
                 <Route path='/' element={<Home />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
                 <Route path='/lists' element={<Lists />} />
                 <Route path='/diary' element={<Diary />} />
                 <Route path='/profile' element={<Profile />} />
