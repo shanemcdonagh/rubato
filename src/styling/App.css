@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  justify-content: center;
+  min-height: 100vh;
   background-color: #282c34;
   color: white;
 }
@@ -7,11 +8,17 @@
 .component-view{
   /* Controls the display of components next to the sidebar */
   display:flex;
+  text-align: center;
   flex-direction:row;
+}
+
+.rating{
+  margin-bottom: 2vh;
 }
 
 .navbar{
   background-color: black;
+  overflow: hidden;
 }
 /* Controls the spacing of the components next to the sidebar */
 .content{
