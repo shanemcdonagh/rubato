@@ -4,6 +4,9 @@ import { NavLink } from "react-router-dom";
 import {IoMusicalNotesSharp} from "react-icons/io5";
 
 class Album extends Component {
+
+    // Allows us to set an initial state for ratings
+    // When backend is fully implemented, ratings will be saved to an album id
     constructor(props) {
         super(props);
         this.state = {
@@ -23,6 +26,7 @@ class Album extends Component {
                     <Card.Body>
                         <Card.Img src={this.props.album.images[0].url} />
                         <Card.Title>{this.props.album.name}</Card.Title>
+
                         {/* https://youtu.be/eDw46GYAIDQ */}
                         <div className='rating'>
                             {[...Array(5)].map((note, i) =>{
@@ -33,7 +37,7 @@ class Album extends Component {
                                     <label>
                                         <input type="radio" name="album-rating" value={ratingScore} 
                                         onClick={() => this.setState({ rating: ratingScore })}/>
-                                        
+
                                         <IoMusicalNotesSharp className='music-note' size = "30"
                                         color={ratingScore <= (this.state.hover || this.state.rating) ? "red" : "grey"} 
                                         onMouseEnter={() => this.setState({ hover: ratingScore })}
@@ -42,7 +46,7 @@ class Album extends Component {
                                 ) 
                             })}         
                         </div>  
-                        <NavLink to={"/album/" + this.props.album.id}>
+                        <NavLink to={"/album/?term=" + this.props.album.id}>
                             <Button variant="danger">View Album</Button>
                         </NavLink>
                     </Card.Body>
