@@ -12,6 +12,15 @@
   flex-direction:row;
 }
 
+input[type="radio"]{
+  display: none;
+}
+
+.music-note{
+  cursor: pointer;
+  transition: color 200ms;
+}
+
 .rating{
   margin-bottom: 2vh;
 }

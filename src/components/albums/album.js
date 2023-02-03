@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-import {FcMusic} from "react-icons/fc";
+import {IoMusicalNotesSharp} from "react-icons/io5";
 
 class Album extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          rating: 0,
+          hover: 0
+        };
+      }
+
     render() {
         return (
                 <Card
@@ -17,11 +25,19 @@ class Album extends Component {
                         <Card.Title>{this.props.album.name}</Card.Title>
                         {/* https://youtu.be/eDw46GYAIDQ */}
                         <div className='rating'>
-                            {[...Array(5)].map((note) =>{
+                            {[...Array(5)].map((note, i) =>{
+
+                                const ratingScore = i + 1;
+
                                 return(
                                     <label>
-                                        <input type="radio" name="album-rating"/>
-                                        <FcMusic size = "30"/>
+                                        <input type="radio" name="album-rating" value={ratingScore} 
+                                        onClick={() => this.setState({ rating: ratingScore })}/>
+                                        
+                                        <IoMusicalNotesSharp className='music-note' size = "30"
+                                        color={ratingScore <= (this.state.hover || this.state.rating) ? "red" : "grey"} 
+                                        onMouseEnter={() => this.setState({ hover: ratingScore })}
+                                        onMouseLeave={() => this.setState({ hover: 0 })}/>
                                     </label>
                                 ) 
                             })}         
