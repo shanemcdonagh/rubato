@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormControl, Card, Row, Container, InputGroup } from 'react-bootstrap';
+import { FormControl, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import Albums from "../albums/albums";
@@ -37,7 +37,7 @@ class Search extends Component {
                     className="me-2"
                     aria-label="Search"
                     onKeyDown={event => {
-                        if (event.key == "Enter") {
+                        if (event.key === "Enter") {
                             this.search();
                         }
                     }}

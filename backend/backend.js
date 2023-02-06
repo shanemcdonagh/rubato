@@ -111,8 +111,8 @@ app.get('/home', async (req, res) => {
     .then(data => {res.status(200).json(data.categories.items)})
 })
 
-// Listens for a GET request to '/album:albumId'
-app.get('/album:albumId', async (req, res) => {
+// Listens for a GET request to '/album/:albumId'
+app.get('/album/:albumId', async (req, res) => {
 
     var albumParams = {
         method: 'GET',
@@ -123,7 +123,7 @@ app.get('/album:albumId', async (req, res) => {
     }
     
     // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
-    var categories = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}`, albumParams)
+    var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}`, albumParams)
     .then(response => response.json())
-    .then(data => {res.status(200).json(data.categories.items)})
+    .then(data => {res.status(200).json(data)})
 })

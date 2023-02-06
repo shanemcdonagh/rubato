@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import {useParams} from 'react-router-dom';
+import axios from "axios";
+import Image from 'react-bootstrap/Image'
 
 class AlbumDetails extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          album: []
+        };
+      }
 
     // Method: Called first when component is mounted into view
     componentDidMount(){
@@ -11,22 +19,24 @@ class AlbumDetails extends Component {
         const queryParameters = new URLSearchParams(window.location.search)
         const term = queryParameters.get("term")
 
-
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        // axios.get('http://localhost:4000/home')
-        //     .then((response) => {
-        //         this.setState({categories: response.data})
-        //     })
-        //     .catch((error) => {
-        //         console.log("Cannot retrieve information from server");
-        //     })
+        axios.get('http://localhost:4000/album/' + term)
+            .then((response) => {
+                this.setState({album: response.data})
+                console.log(this.state.album)
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve information from server " + error);
+            })
     }
 
 
     render() {
         return (
-            <div className="content">Hello</div>
+            <div className="content">
+                <p>{this.state.album.genres}</p>
+            </div>
         );
 
     }

@@ -4,7 +4,6 @@ import {
     CDBSidebar,
     CDBSidebarContent,
     CDBSidebarFooter,
-    CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
     CDBContainer,

@@ -32,7 +32,7 @@ class App extends Component {
 
             {/* NavBar - For easy navigation throughout the application */}
             <Navbar expand="lg" variant="dark">
-              <img src='./simplelogo.png' style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
+              <img src='public\simplelogo.png'style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
               <b>Rubato</b>
             </Navbar>
 
@@ -54,7 +54,7 @@ class App extends Component {
                 <Route path='/diary' element={<Diary />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/search' element={<Search />} />
-                <Route path='/album/:albumId' element={<AlbumDetails />} />
+                <Route path='/album/' element={<AlbumDetails />} />
               </Routes>
             </div>
           </div>
