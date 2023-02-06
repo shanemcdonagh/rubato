@@ -9,6 +9,7 @@ import Lists from './components/pages/lists';
 // Bootstrap - Used to provide CSS styling to Bootstrap components
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar } from 'react-bootstrap';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 
 // Allows for dynamic routing and switching between components
@@ -38,7 +39,10 @@ class App extends Component {
             </Navbar>
 
             <div className='component-view'>
-              <Sidebar />
+            <div className='sidebar'>
+            <Sidebar />
+            </div>
+             
               {/* Switches between the local components */}
               <Routes>
                 <Route path='/' element={<Home />} />

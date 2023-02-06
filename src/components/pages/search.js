@@ -28,9 +28,10 @@ class Search extends Component {
     }
 
     render() {
-        return (<div>
+        return (
+        <div>
             <div>
-            <InputGroup className="mb-3" size="lg" style={{ marginTop: '5vh', marginLeft: '35vh' }}>
+            <InputGroup className="mb-3" size="lg" style={{ marginTop: '5vh', marginLeft: '65vh', width: '100vh' }}>
                 <FormControl
                     type="search"
                     placeholder="Search"

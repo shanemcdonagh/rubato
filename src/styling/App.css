@@ -7,7 +7,9 @@
 
 .component-view{
   /* Controls the display of components next to the sidebar */
-  display:flex;
+  display: 'flex';
+  align-items: 'center';
+  height: '100vh';
   text-align: center;
   flex-direction:row;
 }
@@ -29,6 +31,12 @@ input[type="radio"]{
   background-color: black;
   overflow: hidden;
 }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+}
+
 /* Controls the spacing of the components next to the sidebar */
 .content{
   margin-left: 30%;

@@ -15,7 +15,7 @@ class Genre extends Component {
                     {this.props.genre.toUpperCase()}
                     </Card.Body>
                         </NavLink> 
-                    {/* <NavLink to={"/album/categories?term=" + this.props.category.id}> */}
+                    {/* <NavLink to={"/album/genres?term=" + this.props.genre}> */}
                             {/* <Button variant="danger">View Albums</Button> */}
                     {/* </NavLink> */}
                 </Card>
