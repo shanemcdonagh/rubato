@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { Component } from "react";
-import Categories from "../categories/categories";
+import Genres from "../categories/genres";
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: []
+            genres: []
         };
     }
 
@@ -17,7 +17,8 @@ class Home extends Component {
         // Axios - Promise based HTTP client
         axios.get('http://localhost:4000/home')
             .then((response) => {
-                this.setState({categories: response.data})
+                this.setState({genres: response.data})
+                console.log(this.state.genres)
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server");
@@ -27,7 +28,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Categories categories={this.state.categories}></Categories>
+                <Genres genres={this.state.genres}></Genres>
             </div>  
         );
     }

@@ -45,8 +45,7 @@ class Sidebar extends Component {
                             </NavLink>
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
-
-                    <CDBSidebarFooter style={{ textAlign: 'center' }}>
+                    <CDBSidebarFooter style={{ textAlign: 'center', marginBottom: '10vh' }}>
                         <div className="sidebar-btn-wrapper" style={{ padding: '20px 5px' }}>
                             <CDBContainer>
                                 <CDBIcon fab icon="facebook" size="lg" />

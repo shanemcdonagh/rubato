@@ -1,0 +1,26 @@
+import React, { Component } from 'react';
+import { Card, Button } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
+
+class Genre extends Component {
+    render() {
+        return (
+                <Card
+                    bg="dark"
+                    text="danger"
+                    style={{ width: '18rem', marginLeft: '10vh' }}
+                    className="mb-2">
+                        <NavLink style={{color: 'red', textDecoration: 'none'}}>
+                        <Card.Body>
+                    {this.props.genre.toUpperCase()}
+                    </Card.Body>
+                        </NavLink> 
+                    {/* <NavLink to={"/album/categories?term=" + this.props.category.id}> */}
+                            {/* <Button variant="danger">View Albums</Button> */}
+                    {/* </NavLink> */}
+                </Card>
+        )
+    }
+}
+
+export default Genre;

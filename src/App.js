@@ -21,6 +21,7 @@ import Search from './components/pages/search';
 import AlbumDetails from './components/albums/albumDetails';
 import Login from './components/user/login';
 import Register from './components/user/register';
+import logo from './images/simplelogo.png';
 
 // App class - extends Component class
 class App extends Component {
@@ -31,20 +32,13 @@ class App extends Component {
           <div className="App">
 
             {/* NavBar - For easy navigation throughout the application */}
-            <Navbar expand="lg" variant="dark">
-              <img src='public\simplelogo.png'style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
+            <Navbar expand="lg" variant="dark" sticky="top">
+              <img src={logo} style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
               <b>Rubato</b>
             </Navbar>
 
             <div className='component-view'>
               <Sidebar />
-
-              {/* <header className="App-header">
-            <img src='./simplelogo.png' alt='rubitologo' />
-            <p>Rubito</p>
-            <p>Your taste, your music</p>
-          </header> */}
-
               {/* Switches between the local components */}
               <Routes>
                 <Route path='/' element={<Home />} />
