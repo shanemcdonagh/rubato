@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Image from 'react-bootstrap/Image'
+import {Image, Container, Row, Col} from 'react-bootstrap'
 
 class AlbumDetails extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          album: []
+          album: [],
+          image: [],
+          tracks: ""
         };
       }
 
@@ -24,7 +26,7 @@ class AlbumDetails extends Component {
         axios.get('http://localhost:4000/album/' + term)
             .then((response) => {
                 this.setState({album: response.data})
-                console.log(this.state.album)
+                this.setState({image: this.state.album.images[1]})
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);
@@ -35,7 +37,13 @@ class AlbumDetails extends Component {
     render() {
         return (
             <div className="content">
-                <p>{this.state.album.genres}</p>
+                <Image src={this.state.image.url}></Image>
+                <h1><b>{this.state.album.name}</b></h1>
+                <Container> 
+      <Row>
+      </Row>
+    </Container>
+
             </div>
         );
 
