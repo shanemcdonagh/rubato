@@ -129,7 +129,7 @@ app.get('/album/:albumId', async (req, res) => {
 })
 
 // Listens for a GET request to '/categories/albums'
-app.get('/categories/albums/:categoryId', async (req, res) => {
+app.get('/album/:albumId/tracks', async (req, res) => {
 
     var albumParams = {
         method: 'GET',
@@ -138,9 +138,9 @@ app.get('/categories/albums/:categoryId', async (req, res) => {
             'Authorization': 'Bearer ' + accessToken
         },
     }
-    
-    // // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
-    // var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}`, albumParams)
-    // .then(response => response.json())
-    // .then(data => {res.status(200).json(data)})
+
+    // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
+    var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}/tracks`, albumParams)
+    .then(response => response.json())
+    .then(data => {res.status(200).json(data)})
 })

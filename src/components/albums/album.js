@@ -21,7 +21,7 @@ class Album extends Component {
                     bg="dark"
                     text="danger"
                     style={{ width: '18rem' }}
-                    className="mb-2">
+                    className="mb-2" key={this.props.album.id}>
                     <Card.Header>{this.props.album.artists[0].name}</Card.Header>
                     <Card.Body>
                         <Card.Img src={this.props.album.images[0].url} />
