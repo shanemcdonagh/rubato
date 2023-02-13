@@ -29,13 +29,16 @@ class Lists extends Component {
     }
 
     render() {
+
+        const {setShow} = this.state
+
         return (
             <div className="content">
                  <div className="listButton">
                     <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
                  </div>
                
-                <Modal className="modal" show={this.state.setShow} onHide={this.handleClick} size="lg">
+                <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title center>Create a new list</Modal.Title>
                     </Modal.Header>

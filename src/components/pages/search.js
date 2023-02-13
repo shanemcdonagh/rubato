@@ -20,7 +20,6 @@ class Search extends Component {
         axios.get('http://localhost:4000/search/' + this.state.search)
             .then((response) => {
                 this.setState({albums: response.data})
-                console.log(this.state.albums)
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server");

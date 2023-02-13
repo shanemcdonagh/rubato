@@ -16,6 +16,9 @@ class Album extends Component {
       }
 
     render() {
+
+        const {hover, rating} = this.state
+
         return (
                 <Card
                     bg="dark"
@@ -39,7 +42,7 @@ class Album extends Component {
                                         onClick={() => this.setState({ rating: ratingScore })}/>
 
                                         <IoMusicalNotesSharp className='music-note' size = "30"
-                                        color={ratingScore <= (this.state.hover || this.state.rating) ? "red" : "grey"} 
+                                        color={ratingScore <= (hover || rating) ? "red" : "grey"} 
                                         onMouseEnter={() => this.setState({ hover: ratingScore })}
                                         onMouseLeave={() => this.setState({ hover: 0 })}/>
                                     </label>

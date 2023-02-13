@@ -18,7 +18,6 @@ class Home extends Component {
         axios.get('http://localhost:4000/home')
             .then((response) => {
                 this.setState({genres: response.data})
-                console.log(this.state.genres)
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server");
