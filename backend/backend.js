@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/user.model')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const jwt = require('jsonwebtoken')
 
 
 // Specify port for server to run on
@@ -36,7 +37,7 @@ app.use(function (req, res, next) {
 });
 
 // Used to connect to our MongoDB database
-const connectionString = "mongodb+srv://admin:admin@cluster0.cehtzag.mongodb.net/rubato?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:admin@cluster0.bmqla.mongodb.net/rubato?retryWrites=true&w=majority"
 
 // Spotify credentials (https://developer.spotify.com/documentation/web-api/quick-start/)
 const CLIENT_ID = "8c250eca34024595ada9aa262e1cf257";
@@ -145,7 +146,7 @@ app.get('/album/:albumId/tracks', async (req, res) => {
     .then(data => {res.status(200).json(data)})
 })
 
-// Listens for a GET request to '/browse/categories'
+// Listens for a POST request to '/register'
 app.post('/register', async (req, res) => {
     try 
     {
@@ -154,10 +155,31 @@ app.post('/register', async (req, res) => {
             email: req.body.email,
             password: req.body.password
         })
+        res.json("Ok");
     } catch (error) 
     {
-        
+        res.json("Duplicate email" + error);
     }
-    console.log(req.body)
-   res.json("Hello")
+})
+
+// Listens for a POST request to '/register'
+app.post('/login', async (req, res) => {
+  
+    const user = await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    if(user){
+
+        const token = jwt.sign({
+            name: user.name,
+            email: user.email
+        }, '[secretToken]-99870019')
+        return res.json({status: 'ok', user: token})
+    }
+    else{
+        return res.json("Error logging in")
+    }
+   
 })
