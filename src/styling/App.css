@@ -35,7 +35,7 @@ input[type="radio"]{
 .sidebar {
   position: fixed;
   top: 0;
-  margin-top: 5vh;
+  margin-top: 2vh;
 }
 
 /* Controls the spacing of the components next to the sidebar */

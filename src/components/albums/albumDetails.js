@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {Image, Container, Row, Col} from 'react-bootstrap'
+import {Image, Container, Row} from 'react-bootstrap'
 import {IoMusicalNotesSharp} from "react-icons/io5";
 
 class AlbumDetails extends Component {

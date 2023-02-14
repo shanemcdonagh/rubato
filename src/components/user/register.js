@@ -1,34 +1,60 @@
 import React, { Component } from "react";
-import {Form, Button}from 'react-bootstrap';
+import {Button}from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-
+import axios from "axios";
 
 class Register extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            email: '',
+            password: ''
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
+    }
+
+    handleInputChange(event){
+        const { name, value } = event.target;
+    
+        this.setState({
+          [name]: value,
+        });
+      };
+
+      async handleRegister(e){
+        e.preventDefault();
+
+        const newUser = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post('http://localhost:4000/register', newUser)
+        .then((response) => {
+            console.log(response.data)
+        })
+        .catch((error) => {
+            console.log("Cannot retrieve information from server " + error);
+        })
+      }
+
     render() {
+        const {name, email, password} = this.state
+
         return (
-            // https://react-bootstrap.github.io/forms/overview/
-            <Form style={{ marginLeft: '60vh', marginTop: '20vh'}}>
-                 <Form.Group className="mb-3" controlId="userName">
-                    <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter name" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="email">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <NavLink to="/register">
-                    <Button variant="danger">Register</Button>
-                </NavLink>
-            </Form>
+            <form onSubmit={this.handleRegister}>
+                <div style={{borderRadius: '25px'}}>
+                    <input type="text" placeholder="Username" name="name" value={name} onChange={this.handleInputChange} required /><br/>
+                    <input type="email" placeholder="Email" name="email" value={email} onChange={this.handleInputChange} required /><br/>
+                    <input type="password" placeholder="Password" name="password" value={password} onChange={this.handleInputChange} required /><br/> 
+                </div>  
+            <Button variant="danger" type="submit">Register</Button>
+          </form>
         );
 
     }

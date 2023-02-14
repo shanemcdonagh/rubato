@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//const fetch = require('node-fetch-commonjs')
+const User = require('./models/user.model')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 
@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 });
 
 // Used to connect to our MongoDB database
-const connectionString = "mongodb+srv://admin:admin@cluster0.cehtzag.mongodb.net/?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:admin@cluster0.cehtzag.mongodb.net/rubato?retryWrites=true&w=majority"
 
 // Spotify credentials (https://developer.spotify.com/documentation/web-api/quick-start/)
 const CLIENT_ID = "8c250eca34024595ada9aa262e1cf257";
@@ -46,7 +46,7 @@ var accessToken = "";
 // Asynchronous function
 async function main() {
     // Connect to the database
-   // mongoose.connect(connectionString, { useNewUrlParser: true });
+    mongoose.connect(connectionString, { useNewUrlParser: true });
 
    // Retrieve Spotify API Access Token (Promise)
    // Used to retrieve retrieve a Spotify API access token
@@ -143,4 +143,21 @@ app.get('/album/:albumId/tracks', async (req, res) => {
     var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}/tracks`, albumParams)
     .then(response => response.json())
     .then(data => {res.status(200).json(data)})
+})
+
+// Listens for a GET request to '/browse/categories'
+app.post('/register', async (req, res) => {
+    try 
+    {
+        const user = await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+        })
+    } catch (error) 
+    {
+        
+    }
+    console.log(req.body)
+   res.json("Hello")
 })
