@@ -1,0 +1,21 @@
+.welcome {
+  height: 100vh;
+}
+
+.text-primary {
+  color: #FF4700 !important;
+}
+
+.cta {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #FF4700;
+}
+
+@media (min-width: 992px) {
+  .intro .intro-img {
+    width: 50%;
+    float: right;
+  }
+}
+

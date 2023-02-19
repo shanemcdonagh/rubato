@@ -1,5 +1,6 @@
 import './styling/App.css';
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Local Components to import
 
@@ -22,6 +23,7 @@ import AlbumDetails from './components/albums/albumDetails';
 import Login from './components/user/login';
 import Register from './components/user/register';
 import logo from './images/simplelogo.png';
+import Welcome from './components/welcome';
 
 // App class - extends Component class
 class App extends Component {
@@ -39,7 +41,7 @@ class App extends Component {
 
             <div className='component-view'>
             <div className='sidebar'>
-            <Sidebar />
+            {/* <Sidebar /> */}
             </div>
              
               {/* Switches between the local components */}
@@ -52,6 +54,7 @@ class App extends Component {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/album/' element={<AlbumDetails />} />
+                <Route path='/welcome' element={<Welcome />} />
               </Routes>
             </div>
           </div>
