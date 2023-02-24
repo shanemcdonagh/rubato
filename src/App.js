@@ -1,19 +1,15 @@
 import './styling/App.css';
-import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component, useEffect } from 'react';
 
 // Local Components to import
 
 import Lists from './components/pages/lists';
-
-// Bootstrap - Requirements
-// Bootstrap - Used to provide CSS styling to Bootstrap components
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar } from 'react-bootstrap';
 
 
 // Allows for dynamic routing and switching between components
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { decodeToken } from "react-jwt";
 import Home from './components/pages/home';
 import Diary from './components/pages/diary';
 import Profile from './components/pages/profile';
@@ -25,40 +21,92 @@ import Register from './components/user/register';
 import logo from './images/simplelogo.png';
 import Welcome from './components/welcome';
 
+
+// Scroll to top of page when changing routes
+// https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 // App class - extends Component class
 class App extends Component {
+  // Check if the user is logged in, determines the state of the application
+
+  constructor(props) {
+    super(props);
+    this.state = {userLoggedIn: false};
+    this.updateLoginState = this.updateLoginState.bind(this);
+  } 
+
+  componentDidMount() {
+    console.log(this.state.userLoggedIn)
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      const user = decodeToken(token)
+      console.log(user)
+
+      if (!user) {
+        localStorage.removeItem('token');
+        this.setState({userLoggedIn: false});
+      }
+      else {
+        this.setState({userLoggedIn: true});
+      }
+    }
+  }
+  
+
+  updateLoginState(currentState) {
+    this.setState({ userLoggedIn: currentState });
+  }
+
   // Visual content - Method
   render() {
+
+    const { userLoggedIn } = this.state
+
     return (
-        <Router>
-          <div className="App">
+      <Router>
+      <div className="App">
+        <ScrollToTop/>
+        {/* NavBar - For easy navigation throughout the application */}
+        <Navbar expand="lg" variant="dark" sticky="top">
+          <img src={logo} style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
+          <b>Rubato</b>
+        </Navbar>
 
-            {/* NavBar - For easy navigation throughout the application */}
-            <Navbar expand="lg" variant="dark" sticky="top">
-              <img src={logo} style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
-              <b>Rubato</b>
-            </Navbar>
-
+        {!userLoggedIn ? (
+          <div>
+            <Routes>
+                <Route path='/' element={<Welcome />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />    
+            </Routes>
+          </div> 
+        ) : (
             <div className='component-view'>
-            <div className='sidebar'>
-            {/* <Sidebar /> */}
-            </div>
-             
+              <div className='sidebar'>
+                <Sidebar updateLoginState={this.updateLoginState}/>
+              </div>
               {/* Switches between the local components */}
               <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
                 <Route path='/lists' element={<Lists />} />
                 <Route path='/diary' element={<Diary />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/album/' element={<AlbumDetails />} />
-                <Route path='/welcome' element={<Welcome />} />
               </Routes>
-            </div>
-          </div>
-        </Router>
+            </div> 
+        )}
+      </div>
+      </Router>
     );
   }
 }

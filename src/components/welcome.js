@@ -7,7 +7,7 @@ class Welcome extends Component {
             <div className="welcome" style={{background: "linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url('assets/img/music-background.jpg')"}}>
                 <br/>
                 <h1 className="text-center text-white d-none d-lg-block site-heading"><span className="site-heading-upper mb-3" style={{ color: '#FF4700' }}>THE MUSIC APP FOR ALL YOUR LISTENING NEEDS</span><span className="site-heading-lower">RUBATO</span></h1>
-                <section className="page-section clearfix">
+                <section className="page-section clearfix" style={{backgroundColor: "#282c34"}}>
                     <div className="container">
                         <div className="intro"><img className="img-fluid intro-img mb-3 mb-lg-0 rounded" src="assets/img/simplelogo.png" width={972} height={972} />
                             <div className="text-center intro-text p-5 rounded bg-faded" style={{background: 'white', color: 'black'}}>

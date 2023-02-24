@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {Button}from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 class Login extends Component {
@@ -38,7 +37,9 @@ class Login extends Component {
 
             if(data.user)
             {
+                localStorage.setItem('token', data.user)
                 alert('Login successful')
+                window.location.href = '/'
             }
             else
             {

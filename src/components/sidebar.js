@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styled from 'styled-components/macro';
 
 import {
     CDBSidebar,
@@ -12,20 +13,32 @@ import {
 
 import { NavLink } from "react-router-dom";
 
+const StyledLoginButton = styled.a`
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 30px;
+  display: inline-block;
+`;
+
 // https://www.devwares.com/docs/contrast/react/navigation/sidebar/
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout() {
+        localStorage.removeItem('token');
+        this.props.updateLoginState(false);
+    };
+
     render() {
         return (
             <div style={{ display: 'flex', height: '100vh' }}>
                 <CDBSidebar textColor="#fff" backgroundColor="#000000">
-                    {/* <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                        <div className="container" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src='./simplelogo.png' width="30px" alt='fulllogo' />
-                            <h6 className="ml-2">Rubito</h6>
-                        </div>
-                    </CDBSidebarHeader> */}
-
                     <CDBSidebarContent className="sidebar-content">
                         <CDBSidebarMenu>
                             <NavLink to="/search">
@@ -46,6 +59,9 @@ class Sidebar extends Component {
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
                     <CDBSidebarFooter style={{ textAlign: 'center', marginBottom: '10vh' }}>
+                        <StyledLoginButton onClick={this.handleLogout}>
+                            Logout
+                        </StyledLoginButton>
                         <div className="sidebar-btn-wrapper" style={{ padding: '20px 5px' }}>
                             <CDBContainer>
                                 <CDBIcon fab icon="facebook" size="lg" />
