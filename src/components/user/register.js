@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import {Button}from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import logo from '../../images/simplelogo.png';
+import styled from 'styled-components/macro';
 
 class Register extends Component {
 
@@ -17,15 +19,15 @@ class Register extends Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
-    handleInputChange(event){
+    handleInputChange(event) {
         const { name, value } = event.target;
-    
-        this.setState({
-          [name]: value,
-        });
-      };
 
-      async handleRegister(e){
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    async handleRegister(e) {
         e.preventDefault();
 
         const newUser = {
@@ -35,26 +37,36 @@ class Register extends Component {
         }
 
         axios.post('http://localhost:4000/register', newUser)
-        .then((response) => {
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.log("Cannot retrieve information from server " + error);
-        })
-      }
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve information from server " + error);
+            })
+    }
 
     render() {
-        const {name, email, password} = this.state
+        const { name, email, password } = this.state
 
         return (
-            <form onSubmit={this.handleRegister}>
-                <div style={{borderRadius: '25px'}}>
-                    <input type="text" placeholder="Username" name="name" value={name} onChange={this.handleInputChange} required /><br/>
-                    <input type="email" placeholder="Email" name="email" value={email} onChange={this.handleInputChange} required /><br/>
-                    <input type="password" placeholder="Password" name="password" value={password} onChange={this.handleInputChange} required /><br/> 
-                </div>  
-            <Button variant="danger" type="submit">Register</Button>
-          </form>
+            <div className="container">
+                <img src={logo} className = "logoUser"/>
+                <h1 className = "logoUser">Rubato</h1>
+                <div className="vl"></div>
+                <div className="register">
+                    <form onSubmit={this.handleRegister}>
+                        <div style={{ borderRadius: '25px' }}>
+                            <input type="text" placeholder="Username" name="name" value={name} onChange={this.handleInputChange} required /><br />
+                            <input type="email" placeholder="Email" name="email" value={email} onChange={this.handleInputChange} required /><br />
+                            <input type="password" placeholder="Password" name="password" value={password} onChange={this.handleInputChange} required /><br />
+                        </div><br/>
+                        <Button variant="danger" type="submit" className="register-login-button">Register</Button>
+                        <NavLink id="RouterNavLink" to="/login">
+                            <Button variant="danger" className="register-login-button">Login</Button>
+                        </NavLink>
+                    </form>
+                </div>
+            </div>
         );
 
     }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {Button}from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 import axios from "axios";
+import logo from '../../images/simplelogo.png';
 
 class Login extends Component {
 
@@ -55,13 +57,23 @@ class Login extends Component {
         const {email, password} = this.state
 
         return (
-            <form onSubmit={this.handleLogin}>
-                <div style={{borderRadius: '25px'}}>
-                    <input type="email" placeholder="Email" name="email" value={email} onChange={this.handleInputChange} required /><br/>
-                    <input type="password" placeholder="Password" name="password" value={password} onChange={this.handleInputChange} required /><br/> 
-                </div>  
-            <Button variant="danger" type="submit">Login</Button>
-          </form>
+            <div className="container">
+            <img src={logo} className = "logoUser"/>
+            <h1 className = "logoUser">Rubato</h1>
+            <div className="vl"></div>
+            <div className="register">
+                <form onSubmit={this.handleLogin}>
+                    <div style={{ borderRadius: '25px' }}>
+                        <input type="email" placeholder="Email" name="email" value={email} onChange={this.handleInputChange} required /><br/>
+                        <input type="password" placeholder="Password" name="password" value={password} onChange={this.handleInputChange} required /><br/> 
+                    </div><br/>
+                    <Button variant="danger" type="submit" className="register-login-button">Login</Button>
+                    <NavLink id="RouterNavLink" to="/register">
+                        <Button variant="danger" className="register-login-button">Register</Button>
+                    </NavLink>
+                </form>
+            </div>
+        </div>
         );
 
     }

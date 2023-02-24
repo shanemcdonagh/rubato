@@ -82,3 +82,37 @@ input[type="radio"]{
 .App-link {
   color: #61dafb;
 }
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.register{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoUser{
+  flex: 1;
+  max-width: 30%;
+  max-height: 60%;
+  margin-right: 5vh;
+}
+
+.vl {
+  border-left: 2px solid #4d4d4d;
+  height: 100%;
+  position: flex;
+  margin-left: -40px;
+  top: 0;
+}
+
+.register-login-button{
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
