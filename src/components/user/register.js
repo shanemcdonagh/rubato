@@ -49,7 +49,7 @@ class Register extends Component {
         const { name, email, password } = this.state
 
         return (
-            <div className="container">
+            <div className="containerLoginRegister">
                 <img src={logo} className = "logoUser"/>
                 <h1 className = "logoUser">Rubato</h1>
                 <div className="vl"></div>

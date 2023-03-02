@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user.model')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
 
 
 // Specify port for server to run on
@@ -36,18 +37,22 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(express.static(path.join(__dirname, 'build')));
+
 // Used to connect to our MongoDB database
-const connectionString = "mongodb+srv://admin:admin@cluster0.bmqla.mongodb.net/rubato?retryWrites=true&w=majority"
+const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // Spotify credentials (https://developer.spotify.com/documentation/web-api/quick-start/)
-const CLIENT_ID = "8c250eca34024595ada9aa262e1cf257";
-const CLIENT_SECRET = "92afd8890b4645aeb4c683bb5bdc0815";
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 var accessToken = "";
+
+
 
 // Asynchronous function
 async function main() {
     // Connect to the database
-    mongoose.connect(connectionString, { useNewUrlParser: true });
+    mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true });
 
    // Retrieve Spotify API Access Token (Promise)
    // Used to retrieve retrieve a Spotify API access token
