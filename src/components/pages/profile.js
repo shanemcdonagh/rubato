@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import {Image, Button, Container, Modal, Form} from "react-bootstrap";
+import StyledHeader from "../../styling/Header";
+import styled from 'styled-components/macro';
+
 class Profile extends Component {
 
     constructor(props) {
@@ -66,29 +69,20 @@ class Profile extends Component {
         return (
         <div className="content">
             <div className="profile">
-                <div style={{ display: 'grid',  justifyContent: "center"}}>
-                    <Container style={{backgroundColor: '#2f302f', justifyItems: 'grid'}}>
-                        {$profilePicPreview} 
-                        <p>Shane McDonagh</p>
-                        <Button variant="danger" onClick={this.handleClick}>Edit Profile</Button>
-                    </Container>           
-                </div>
-
-                <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
-                    <Modal.Header closeButton>
-                        <Modal.Title center>Edit Profile</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {/* Form - To allow us to add to the collection of lists that a user may have */}
-                        <Form onSubmit={this.handleSubmit}> 
-                            <Form.Group className="mb-3" controlId="formBasicList">
-                                <Form.Label>Profile Picture</Form.Label>
-                                <Form.Control type="file" size="sm" onChange={this.handleImageChange}/>
-                            </Form.Group>
-                            <Button variant="danger" value={profilePic} type="submit">Submit</Button>
-                        </Form>       
-                    </Modal.Body>
-                </Modal>
+            <StyledHeader type="user">
+            <div className="header__inner">
+                {$profilePicPreview} 
+              <div>
+                <div className="header__overline">Profile</div>
+                <h1 className="header__name">Shane McDonagh</h1>
+                <p className="header__meta">
+                  <span>
+                    0 Reviews
+                  </span>
+                </p>
+              </div>
+            </div>
+          </StyledHeader>
             </div>
         </div>
         )
