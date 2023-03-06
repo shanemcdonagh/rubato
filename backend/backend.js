@@ -48,6 +48,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 var accessToken = "";
+var userID = "";
 
 // Asynchronous function
 async function main() {
@@ -168,6 +169,8 @@ app.post('/register', async (req, res) => {
 // Listens for a POST request to '/register'
 app.post('/login', async (req, res) => {
 
+    
+
     const user = await User.findOne({
         email: req.body.email,
         password: req.body.password
@@ -176,7 +179,7 @@ app.post('/login', async (req, res) => {
     if (user) {
 
         // Retrieve the object id of the user (used to link documents later)
-        localStorage.setItem("userID", user._id.toString());
+        userID = user._id.toString();
 
         const token = jwt.sign({
             name: user.name,
@@ -186,7 +189,7 @@ app.post('/login', async (req, res) => {
     }
     else {
         // Make sure the userID is empty
-        localStorage.setItem("userID", "");
+        userID = user._id.toString();
 
         return res.json("Error logging in")
     }
@@ -207,22 +210,37 @@ app.post('/createList', async (req, res) => {
 // Listens for a POST request to '/review'
 app.post('/review', async (req, res) => {
 
-    // Create a review to store
+    // First check if the review already exists
+    const oldReview = await Review.findOne({
+        albumID: req.body.albumID
+    })
 
-    try {
+    if (oldReview) {
+        const { rating } = req.body.rating;
 
+        // Change code to look like this version
+        Review.updateOne({ _id: oldReview._id }, { rating }, (err, result) => {
+            if (err) {
+                res.status(500).json(err);
+            } else {
+                res.json(result);
+            }
+        });
+    }
+    else {
         const review = await Review.create({
             albumID: req.body.albumID,
             artistName: req.body.artistName,
             albumName: req.body.albumName,
             image: req.body.image,
             rating: req.body.rating,
-            userID: localStorage.getItem("userID")
+            userID: userID
+        }, (err, result) => {
+            if (err) {
+                res.status(500).json(err);
+            } else {
+                res.json(result);
+            }
         })
-
-        res.status(200).json("Review has been saved")
-
-    } catch (error) {
-        return res.json("Error logging review: " + error)
     }
 })

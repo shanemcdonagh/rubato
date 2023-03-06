@@ -8,7 +8,7 @@ import { Navbar } from 'react-bootstrap';
 
 
 // Allows for dynamic routing and switching between components
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import Home from './components/pages/home';
 import Diary from './components/pages/diary';
@@ -86,7 +86,8 @@ class App extends Component {
             <Routes>
                 <Route path='/' element={<Welcome />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />    
+                <Route path='/register' element={<Register />} />
+                <Route path="*" element={<Navigate to="/" replace />} />    
             </Routes>
           </div> 
         ) : (
@@ -102,6 +103,7 @@ class App extends Component {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/album/' element={<AlbumDetails />} />
+                <Route path="*" element={<Navigate to="/" replace />} /> 
               </Routes>
             </div> 
         )}

@@ -6,7 +6,7 @@ const Review = new mongoose.Schema({
     artistName: {type: String, required: true},
     albumName: {type: String, required: true},
     image: {type: String, required: true},
-    rating: {type: String, required: true},
+    rating: {type: Number, required: true},
     userID: { type: String, ref: 'user-data', required: true } // Reference to the user-data collection
 },
 {collection: 'reviews'}
