@@ -3,8 +3,11 @@ const mongoose = require('mongoose');
 
 const Review = new mongoose.Schema({
     albumID: {type: String, required: true, unique: true},
+    artistName: {type: String, required: true},
+    albumName: {type: String, required: true},
+    image: {type: String, required: true},
     rating: {type: String, required: true},
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user-data', required: true } // Reference to the user-data collection
+    userID: { type: String, ref: 'user-data', required: true } // Reference to the user-data collection
 },
 {collection: 'reviews'}
 )

@@ -9,7 +9,7 @@ class Genre extends Component {
                     bg="dark"
                     text="danger"
                     style={{ width: '18rem', marginLeft: '10vh' }}
-                    className="mb-2">
+                    className="mb-2" key={this.props.key}>
                         <NavLink style={{color: 'red', textDecoration: 'none'}}>
                         <Card.Body>
                     {this.props.genre.toUpperCase()}
