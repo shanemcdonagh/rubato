@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/user.model')
+const List = require('./models/list.model')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
@@ -46,6 +47,9 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 var accessToken = "";
+
+// Allows us to retrieve specific documents which are linked to the current logged in user
+var userObjectID = "";
 
 
 
@@ -169,6 +173,9 @@ app.post('/register', async (req, res) => {
 
 // Listens for a POST request to '/register'
 app.post('/login', async (req, res) => {
+
+    // Initially make sure the ID is empty (new user can be logging in)
+    userObjectID = "";
   
     const user = await User.findOne({
         email: req.body.email,
@@ -176,6 +183,10 @@ app.post('/login', async (req, res) => {
     })
 
     if(user){
+
+        // Retrieve the object id of the user (used to link documents later)
+        userObjectID = user._id.toString();
+        console.log(userObjectID); // TEST - STOPPED HERE
 
         const token = jwt.sign({
             name: user.name,
@@ -187,4 +198,15 @@ app.post('/login', async (req, res) => {
         return res.json("Error logging in")
     }
    
+})
+
+// Listens for a POST request to '/createList'
+app.post('/createList', async (req, res) => {
+  
+    // Create a list which links to the user (by their object id)
+    // const list = await List.create({
+    //     name: req.body.name,
+    //     email: req.body.email,
+    //     password: req.body.password
+    // })
 })
