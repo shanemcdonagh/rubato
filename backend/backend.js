@@ -169,7 +169,7 @@ app.post('/register', async (req, res) => {
 // Listens for a POST request to '/register'
 app.post('/login', async (req, res) => {
 
-    
+
 
     const user = await User.findOne({
         email: req.body.email,
@@ -244,3 +244,24 @@ app.post('/review', async (req, res) => {
         })
     }
 })
+
+
+// Listens for a get request to '/review'
+app.get('/review/:albumID', async (req, res) => {
+    
+    // First check if the review already exists
+    const review = await Review.findOne({
+        albumID: req.params.albumID
+    })
+
+    if (review) {
+        // Respond with the album rating
+        res.json(review.rating);
+    }
+    else {
+        // Respond with the default rating 
+        res.json(0);
+    }
+})
+
+

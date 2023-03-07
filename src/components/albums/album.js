@@ -19,6 +19,17 @@ class Album extends Component {
         this.saveRating = this.saveRating.bind(this)
     }
 
+    componentDidMount() {
+        axios.get(`http://localhost:4000/review/${this.props.album.id}`)
+            .then((response) => {
+                console.log(response.data);
+                this.setState({ rating: response.data });
+            })
+            .catch((error) => {
+                console.log(`Unexpected error: ${error}`);
+            })
+    }
+
     saveRating() {
 
         console.log(this.state.rating)

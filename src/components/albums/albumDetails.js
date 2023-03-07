@@ -28,7 +28,7 @@ class AlbumDetails extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get('http://localhost:4000/album/' + term)
+        axios.get(`http://localhost:4000/album/${term}`)
             .then((response) => {
                 this.setState({album: response.data})
                 this.setState({image: response.data.images[1]})
@@ -39,7 +39,7 @@ class AlbumDetails extends Component {
                 console.log("Cannot retrieve information from server " + error);
             })
 
-        axios.get('http://localhost:4000/album/' + term + '/tracks')
+        axios.get(`http://localhost:4000/album/${term}/tracks`)
         .then((response) => {
             this.setState({tracks: response.data.items})
         })
