@@ -98,7 +98,10 @@ app.get('/search/:artist', async (req, res) => {
     // Retrieve album metadata based on artist id (https://developer.spotify.com/console/get-artist-albums/)
     var albumData = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&market=US&limit=50`, artistParams)
         .then(response => response.json())
-        .then(data => res.status(200).json(data.items))
+        .then(data => {
+            const albums = data.items.filter(album => album.album_type === 'album');
+            res.status(200).json(data.items);
+        })
 })
 
 // Listens for a GET request to '/browse/categories'

@@ -3,10 +3,6 @@ import { Card, Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 
 class Artist extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Card
@@ -17,7 +13,9 @@ class Artist extends Component {
                 <Card.Header>{this.props.artist.name}</Card.Header>
                 <Card.Body>
                     <Card.Img src={this.props.artist.images[0].url} width="230.4px" height="230.4px" />
-                    <Button variant="danger">View Albums</Button>
+                    <NavLink to={"/artists/albums/?term=" + this.props.artist.name}>
+                        <Button variant="danger">View Albums</Button>
+                    </NavLink>
                 </Card.Body>
             </Card>
         )

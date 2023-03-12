@@ -4,7 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 import Album from './album';
 
 
-// Class Plants - Extends Component class
+// Class Albums - Extends Component class
 class Albums extends Component {
 
     // Method - Visual content of the component
@@ -18,8 +18,7 @@ class Albums extends Component {
                     })}
                 </Row>
             </Container>
-            </div>
-            
+            </div>   
         );
     }
 }

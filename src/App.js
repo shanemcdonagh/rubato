@@ -21,6 +21,7 @@ import Register from './components/user/register';
 import logo from './images/simplelogo.png';
 import Welcome from './components/user/welcome';
 import GenreAlbums from './components/genres/genrealbums';
+import ArtistAlbums from './components/genres/artistalbums';
 
 
 // Scroll to top of page when changing routes
@@ -107,6 +108,7 @@ class App extends Component {
                   <Route path='/search' element={<Search />} />
                   <Route path='/album/' element={<AlbumDetails />} />
                   <Route path='/genre/albums/' element={<GenreAlbums />} />
+                  <Route path='/artists/albums/' element={<ArtistAlbums />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </div>
