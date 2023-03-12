@@ -39,7 +39,8 @@ class Album extends Component {
             artistName: this.props.album.artists[0].name,
             albumName: this.props.album.name,
             image: this.props.album.images[0].url,
-            rating: this.state.rating
+            rating: this.state.rating,
+            userID: localStorage.getItem('userID')
         }
 
         axios.post('http://localhost:4000/review', review)

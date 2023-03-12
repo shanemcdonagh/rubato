@@ -48,7 +48,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 var accessToken = "";
-var userID = "";
+var userID = ""; // MAKE IT SO THAT THIS IS PASSED TO THE SERVER BY THE CLIENT EACH REQUEST, NOT ONLY WHEN LOGGING IN
 
 // Asynchronous function
 async function main() {
@@ -104,7 +104,7 @@ app.get('/search/:artist', async (req, res) => {
 // Listens for a GET request to '/browse/categories'
 app.get('/home', async (req, res) => {
 
-    var categoryParams = {
+    var genreParams = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -112,10 +112,37 @@ app.get('/home', async (req, res) => {
         },
     }
 
-    // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
-    var categories = await fetch(`https://api.spotify.com/v1/recommendations/available-genre-seeds`, categoryParams)
+    var genres = await fetch(`https://api.spotify.com/v1/recommendations/available-genre-seeds`, genreParams)
         .then(response => response.json())
         .then(data => { res.status(200).json(data.genres) })
+})
+
+// Listens for a GET request to '/genre/:genreID'
+app.get('/genre/:genreName', async (req, res) => {
+
+    var genreParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }
+
+    var artists = await fetch(`https://api.spotify.com/v1/search?q=${req.params.genreName}&type=artist&limit=50`, genreParams)
+        .then(response => response.json())
+        .then(data => {
+
+            const artists = data.artists.items;
+
+            // Sort the artists based on their popularity
+            artists.sort((a, b) => b.popularity - a.popularity);
+
+            // Get the top 20 most popular artists
+            const topArtists = artists.slice(0, 20);
+
+            console.log(topArtists);
+            return res.status(200).json(topArtists)
+        })
 })
 
 // Listens for a GET request to '/album/:albumId'
@@ -185,7 +212,7 @@ app.post('/login', async (req, res) => {
             name: user.name,
             email: user.email
         }, '[secretToken]-99870019')
-        return res.json({ status: 'ok', user: token })
+        return res.json({ status: 'ok', user: token, userID: user._id.toString() })
     }
     else {
         // Make sure the userID is empty
@@ -198,13 +225,19 @@ app.post('/login', async (req, res) => {
 
 // Listens for a POST request to '/createList'
 app.post('/createList', async (req, res) => {
-
     // Create a list which links to the user (by their object id)
-    // const list = await List.create({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password
-    // })
+    console.log(req.body.name)
+    const list = await List.create({
+        name: req.body.name,
+        albums: [],
+        userID: req.body.userID
+    }, (err, result) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            res.json(result);
+        }
+    })
 })
 
 // Listens for a POST request to '/review'
@@ -212,13 +245,13 @@ app.post('/review', async (req, res) => {
 
     // First check if the review already exists
     const oldReview = await Review.findOne({
-        albumID: req.body.albumID
+        albumID: req.body.albumID,
+        userID: req.body.userID
     })
 
     if (oldReview) {
         const { rating } = req.body.rating;
 
-        // Change code to look like this version
         Review.updateOne({ _id: oldReview._id }, { rating }, (err, result) => {
             if (err) {
                 res.status(500).json(err);
@@ -234,7 +267,7 @@ app.post('/review', async (req, res) => {
             albumName: req.body.albumName,
             image: req.body.image,
             rating: req.body.rating,
-            userID: userID
+            userID: req.body.userID
         }, (err, result) => {
             if (err) {
                 res.status(500).json(err);
@@ -246,12 +279,13 @@ app.post('/review', async (req, res) => {
 })
 
 
-// Listens for a get request to '/review'
+// Listens for a get request to '/review' (NEED TO CHANGE THIS)
 app.get('/review/:albumID', async (req, res) => {
-    
+
     // First check if the review already exists
     const review = await Review.findOne({
-        albumID: req.params.albumID
+        albumID: req.params.albumID,
+        userID: userID
     })
 
     if (review) {
@@ -263,5 +297,6 @@ app.get('/review/:albumID', async (req, res) => {
         res.json(0);
     }
 })
+
 
 

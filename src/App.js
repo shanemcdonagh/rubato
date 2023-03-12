@@ -13,13 +13,14 @@ import { decodeToken } from "react-jwt";
 import Home from './components/pages/home';
 import Diary from './components/pages/diary';
 import Profile from './components/pages/profile';
-import Sidebar from './components/sidebar';
+import Sidebar from './components/misc/sidebar';
 import Search from './components/pages/search';
 import AlbumDetails from './components/albums/albumDetails';
 import Login from './components/user/login';
 import Register from './components/user/register';
 import logo from './images/simplelogo.png';
-import Welcome from './components/welcome';
+import Welcome from './components/user/welcome';
+import GenreAlbums from './components/genres/genrealbums';
 
 
 // Scroll to top of page when changing routes
@@ -39,9 +40,9 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {userLoggedIn: false};
+    this.state = { userLoggedIn: false };
     this.updateLoginState = this.updateLoginState.bind(this);
-  } 
+  }
 
   componentDidMount() {
     console.log(this.state.userLoggedIn)
@@ -53,14 +54,15 @@ class App extends Component {
 
       if (!user) {
         localStorage.removeItem('token');
-        this.setState({userLoggedIn: false});
+        localStorage.removeItem('userID');
+        this.setState({ userLoggedIn: false });
       }
       else {
-        this.setState({userLoggedIn: true});
+        this.setState({ userLoggedIn: true });
       }
     }
   }
-  
+
 
   updateLoginState(currentState) {
     this.setState({ userLoggedIn: currentState });
@@ -73,41 +75,44 @@ class App extends Component {
 
     return (
       <Router>
-      <div className="App">
-        <ScrollToTop/>
-        {/* NavBar - For easy navigation throughout the application */}
-        <Navbar expand="lg" variant="dark" sticky="top">
-          <img src={logo} style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
-          <b>Rubato</b>
-        </Navbar>
+        <div className="App">
+          <ScrollToTop />
+          {/* NavBar - For easy navigation throughout the application */}
+          <Navbar expand="lg" variant="dark" sticky="top">
+            <img src={logo} style={{ width: '30px', marginLeft: "30px", marginRight: "5px" }} alt='fulllogo' />
+            <b>Rubato</b>
+          </Navbar>
 
-        {!userLoggedIn ? (
-          <div>
-            <Routes>
+          {!userLoggedIn ? (
+            <div>
+              <Routes>
                 <Route path='/' element={<Welcome />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path="*" element={<Navigate to="/" replace />} />    
-            </Routes>
-          </div> 
-        ) : (
-            <div className='component-view'>
-              <div className='sidebar'>
-                <Sidebar updateLoginState={this.updateLoginState}/>
-              </div>
-              {/* Switches between the local components */}
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/lists' element={<Lists />} />
-                <Route path='/diary' element={<Diary />} />
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/search' element={<Search />} />
-                <Route path='/album/' element={<AlbumDetails />} />
-                <Route path="*" element={<Navigate to="/" replace />} /> 
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
-            </div> 
-        )}
-      </div>
+            </div>
+          ) : (
+            <div>
+              <div className='sidebar'>
+                <Sidebar updateLoginState={this.updateLoginState} />
+              </div>
+              <div className='component-view'>
+                {/* Switches between the local components */}
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/lists' element={<Lists />} />
+                  <Route path='/diary' element={<Diary />} />
+                  <Route path='/profile' element={<Profile />} />
+                  <Route path='/search' element={<Search />} />
+                  <Route path='/album/' element={<AlbumDetails />} />
+                  <Route path='/genre/albums/' element={<GenreAlbums />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </div>
+            </div>
+          )}
+        </div>
       </Router>
     );
   }

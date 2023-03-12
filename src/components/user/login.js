@@ -40,6 +40,7 @@ class Login extends Component {
             if(data.user)
             {
                 localStorage.setItem('token', data.user)
+                localStorage.setItem('userID', data.userID)
                 alert('Login successful')
                 window.location.href = '/'
             }
@@ -58,7 +59,7 @@ class Login extends Component {
 
         return (
             <div className="containerLoginRegister">
-            <img src={logo} className = "logoUser"/>
+            <img src={logo} alt="logo" className = "logoUser"/>
             <h1 className = "logoUser">Rubato</h1>
             <div className="vl"></div>
             <div className="register">

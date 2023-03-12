@@ -10,7 +10,7 @@ class Genres extends Component {
     // Method - Visual content of the component
     render() {
         return (
-            <div className='categories' style={{marginLeft: '15vh'}}>
+            <div className='categories' style={{marginLeft: '40vh', textAlign: 'center'}}>
                 <Container>
                 <Table striped bordered hover variant="dark">
                     <thead>
@@ -21,7 +21,7 @@ class Genres extends Component {
                     <tbody>
                         <tr>
                         <td> 
-                            <Row className="mx-2 row row-col-4">
+                            <Row className="mx-2 row row-col-4 genre-list">
                                 {this.props.genres.map((genre) => {
                                     return <Genre genre={genre} key={genre.id}></Genre>;
                                 })}

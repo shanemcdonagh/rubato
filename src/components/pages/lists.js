@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import {Modal, Button, Form} from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
+import axios from "axios";
 
 // Lists will showcase all lists that have been created by a given user
 class Lists extends Component {
@@ -10,45 +11,83 @@ class Lists extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            setShow: false
+            setShow: false,
+            newListName: ''
         };
 
         // Binding this keyword
-        this.handleClick = this.handleClick.bind(this)
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNewListNameChange = this.handleNewListNameChange.bind(this);
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        const newListName = this.state.newListName.trim();
+
+        if (!newListName) {
+            return;
+        }
+
+        axios.post('http://localhost:4000/createList', {name: newListName, userID: localStorage.getItem("userID")})
+            .then((response) => {
+                console.log("List added to account: " + response.data);
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve information from server: " + error);
+            });
+
+        // Close the modal and reset the form state
+        this.setState({ newListName: '', setShow: false });
     }
 
     handleClick() {
-        if(!this.state.setShow)
-        {
-            this.setState({ setShow: true })
-        }
-        else
-        {
-            this.setState({ setShow: false })
-        }     
+        this.setState(prevState => ({
+            setShow: !prevState.setShow
+        }));
     }
 
+    handleNewListNameChange(event) {
+        this.setState({ newListName: event.target.value });
+    }
+
+    // -- NOTE: MAKE IT SO IT WILL DISPLAY LISTS CREATED IF SOME EXISTS, ELSE SHOW NOTICE THAT THERE ARE NO LISTS EXISTING
     render() {
 
-        const {setShow} = this.state
+        const { setShow, newListName } = this.state;
 
         return (
             <div className="content">
-                 <div className="listButton">
+                {true ? (
+                <div>
+                    <h1>No lists exist yet</h1>
+                </div> ) : (
+                <div>
+                    
+                </div>)}
+
+
+                <div className="listButton">
                     <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
-                 </div>
-               
+                </div>
+
                 <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title center>Create a new list</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {/* Form - To allow us to add to the collection of lists that a user may have */}
-                        <Form.Group className="mb-3" controlId="formBasicList">
-                            <Form.Label>List</Form.Label>
-                            <Form.Control placeholder="New list name" />
-                        </Form.Group>
-                        <Button variant="danger" type="submit">Submit</Button>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group className="mb-3" controlId="formBasicList">
+                                <Form.Label>List</Form.Label>
+                                <Form.Control placeholder="New list name"
+                                    value={newListName}
+                                    onChange={this.handleNewListNameChange}
+                                />
+                            </Form.Group>
+                            <Button variant="danger" type="submit">Submit</Button>
+                        </Form>
                     </Modal.Body>
                 </Modal>
             </div>

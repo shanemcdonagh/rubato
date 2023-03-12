@@ -40,7 +40,7 @@ class Sidebar extends Component {
             <div style={{ display: 'flex', height: '100vh' }}>
                 <CDBSidebar textColor="#fff" backgroundColor="#000000">
                     <CDBSidebarContent className="sidebar-content">
-                        <CDBSidebarMenu>
+                        <CDBSidebarMenu style={{ paddingTop: '25%' }} className="nav">
                             <NavLink to="/search">
                                 <CDBSidebarMenuItem icon="search">Search</CDBSidebarMenuItem>
                             </NavLink>

@@ -9,7 +9,7 @@ class Welcome extends Component {
                 <h1 className="text-center text-white d-none d-lg-block site-heading"><span className="site-heading-upper mb-3" style={{ color: '#FF4700' }}>THE MUSIC APP FOR ALL YOUR LISTENING NEEDS</span><span className="site-heading-lower">RUBATO</span></h1>
                 <section className="page-section clearfix" style={{backgroundColor: "#282c34"}}>
                     <div className="container">
-                        <div className="intro"><img className="img-fluid intro-img mb-3 mb-lg-0 rounded" src="assets/img/simplelogo.png" width={972} height={972} />
+                        <div className="intro"><img className="img-fluid intro-img mb-3 mb-lg-0 rounded" src="assets/img/simplelogo.png" alt="logo" width={972} height={972} />
                             <div className="text-center intro-text p-5 rounded bg-faded" style={{background: 'white', color: 'black'}}>
                                 <h2 className="section-heading mb-4"><span className="section-heading-upper">MUSIC </span><span className="section-heading-lower">WORTH LISTENING TO</span></h2>
                                 <p className="mb-3" style={{ fontFamily: 'Raleway, sans-serif' }}><br />Rubato is a <strong>web-based social networking service</strong> for users to <br />track, review, and share music. Rubato can be used as a diary, to track/review albums you've been listening to, or even as a way to list your favorite albums and artists. Either way, Rubato is the place for you!<br /><br /></p>
@@ -29,12 +29,12 @@ class Welcome extends Component {
                                 </div>
                             </div>
                             <div className="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3" data-bss-baguettebox>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/2/23/Phoebe_Bridgers_Punisher_%282020%29.png" width={346} height={346} /></a></div>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://media.pitchfork.com/photos/61649694110e7cd222907396/1:1/w_600/Black-Country-New-Road.jpg" width={346} height={346} /></a></div>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/1/14/Inrainbowscover.png" width={350} height={350} /></a></div>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/3/3f/Katebushhoundsoflove.png" width={342} height={342} /></a></div>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://beatsperminute.com/wp-content/uploads/2020/11/ichiko-aoba-windswept-adan.jpg" width={346} height={346} /></a></div>
-                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://media.pitchfork.com/photos/627c1023d3c744a67a846260/master/w_1280%2Cc_limit/Kendrick-Lamar-Mr-Morale-And-The-Big-Steppers.jpg" width={348} height={348} /></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/2/23/Phoebe_Bridgers_Punisher_%282020%29.png" width={346} height={346} alt="phoebe-bridgers"/></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://media.pitchfork.com/photos/61649694110e7cd222907396/1:1/w_600/Black-Country-New-Road.jpg" width={346} height={346} alt="bcnr"/></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/1/14/Inrainbowscover.png" width={350} height={350} alt="radiohead"/></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/3/3f/Katebushhoundsoflove.png" width={342} height={342} alt="katebush" /></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://beatsperminute.com/wp-content/uploads/2020/11/ichiko-aoba-windswept-adan.jpg" width={346} height={346} alt="ichiko-aoba" /></a></div>
+                                <div className="col"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img className="img-fluid" src="https://media.pitchfork.com/photos/627c1023d3c744a67a846260/master/w_1280%2Cc_limit/Kendrick-Lamar-Mr-Morale-And-The-Big-Steppers.jpg" alt= "kendrick-lamar" width={348} height={348} /></a></div>
                             </div>
                         </div>
                     </section>
