@@ -7,3 +7,5 @@
 
 
 Rubato is a <b>web-based social networking service</b> for users to track, review, and share music. Rubato can be used as a diary, to track/review albums you've been listening to, or even as a way to list your favourite albums and artists. Either way, Rubato is the place for you!
+
+<img src="https://github.com/shanemcdonagh/rubato/blob/main/src/images/welcome-screen.png?raw=true" alt="Rubato Welcome" title="Welcome"/>
