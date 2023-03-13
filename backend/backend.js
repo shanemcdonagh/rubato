@@ -243,6 +243,33 @@ app.post('/createList', async (req, res) => {
     })
 })
 
+// Listens for a POST request to '/retrieveLists'
+app.post('/retrieveLists', async (req, res) => {
+    try {
+        const list = await List.find({
+            userID: req.body.userID
+        }).exec();
+        res.json(list);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+// Listens for a patch request to '/review' (NEED TO CHANGE THIS)
+app.patch('/deleteList', async (req, res) => {
+
+    try {
+        const list = await List.findOneAndDelete({
+            name: req.body.name,
+            userID: req.body.userID
+        }).exec();
+        res.json("Succesfully deleted list");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+
 // Listens for a POST request to '/review'
 app.post('/review', async (req, res) => {
 

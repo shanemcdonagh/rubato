@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "axios";
+import ListenLists from "../listenlists/listenlists";
 
 // Lists will showcase all lists that have been created by a given user
 class Lists extends Component {
@@ -12,13 +13,24 @@ class Lists extends Component {
         super(props);
         this.state = {
             setShow: false,
-            newListName: ''
+            newListName: '',
+            lists: []
         };
 
         // Binding this keyword
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNewListNameChange = this.handleNewListNameChange.bind(this);
+    }
+
+    componentDidMount() {
+        axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
+            .then((response) => {
+                this.setState({ lists: response.data })
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve lists from server: " + error);
+            });
     }
 
     handleSubmit(event) {
@@ -30,9 +42,13 @@ class Lists extends Component {
             return;
         }
 
-        axios.post('http://localhost:4000/createList', {name: newListName, userID: localStorage.getItem("userID")})
+        axios.post('http://localhost:4000/createList', { name: newListName, userID: localStorage.getItem("userID") })
             .then((response) => {
                 console.log("List added to account: " + response.data);
+
+                // Append the new list to the existing list of lists
+                const newLists = [...this.state.lists, response.data];
+                this.setState({ lists: newLists });
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server: " + error);
@@ -52,20 +68,18 @@ class Lists extends Component {
         this.setState({ newListName: event.target.value });
     }
 
-    // -- NOTE: MAKE IT SO IT WILL DISPLAY LISTS CREATED IF SOME EXISTS, ELSE SHOW NOTICE THAT THERE ARE NO LISTS EXISTING
     render() {
-
-        const { setShow, newListName } = this.state;
+        const { setShow, newListName, lists } = this.state;
 
         return (
             <div className="content">
-                {true ? (
-                <div>
-                    <h1>No lists exist yet</h1>
-                </div> ) : (
-                <div>
-                    
-                </div>)}
+                {lists.length === 0 ? (
+                    <div>
+                        <h1>No lists exist yet</h1>
+                    </div>) : (
+                    <div>
+                        <ListenLists lists={lists}></ListenLists>
+                    </div>)}
 
 
                 <div className="listButton">

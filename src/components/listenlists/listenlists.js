@@ -1,6 +1,5 @@
 // Imports (React, Component and Local Components)
 import React, { Component } from 'react';
-import { Container, Row } from 'react-bootstrap';
 import ListenList from './listenlist';
 
 
@@ -11,13 +10,9 @@ class ListenLists extends Component {
     render() {
         return (
             <div className='content'>
-                <Container>
-                <Row className="mx-2 row row-col-4">
                     {this.props.lists.map((list) => {
                         return <ListenList list={list} key={list.id}></ListenList>;
                     })}
-                </Row>
-            </Container>
             </div>   
         );
     }
