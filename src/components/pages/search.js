@@ -30,7 +30,7 @@ class Search extends Component {
         return (
         <div>
             <div>
-            <InputGroup className="mb-3" size="lg" style={{ marginTop: '5vh', marginLeft: '65vh', width: '100vh' }}>
+            <InputGroup className="mb-3" size="lg" style={{ marginTop: '3%', marginLeft: '20%', width: '50vw' }}>
                 <FormControl
                     type="search"
                     placeholder="Search"

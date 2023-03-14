@@ -40,7 +40,7 @@ class ListenList extends Component {
                 {/* Props - Accesses data passed as a property to current component */}
                 <Container className='container-fluid'>
                     <hr />
-                    <Row className="row">
+                    <Row className="listen-list-row">
                         <Col>
                             <p>Name</p>
                             <h3>{this.props.list.name}</h3>

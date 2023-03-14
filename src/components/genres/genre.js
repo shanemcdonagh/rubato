@@ -8,15 +8,14 @@ class Genre extends Component {
             <Card
                 bg="dark"
                 text="danger"
-                style={{ width: '18rem', marginLeft: '10vh' }}
+                style={{ width: '18rem', marginLeft: '1%' }}
                 className="mb-2 genre-card" key={this.props.key}>
-                <NavLink style={{ color: 'red', textDecoration: 'none' }}>
+                    <Card.Header>{this.props.genre.genre.toUpperCase()}</Card.Header>
                     <Card.Body>
-                        {this.props.genre.toUpperCase()}
+                        <Card.Img src={this.props.genre.url} width="220.4px" height="220.4px" />
                     </Card.Body>
-                </NavLink>
-                <NavLink to={"/genre/albums/?term=" + this.props.genre}>
-                    <Button variant="danger">View Albums</Button>
+                <NavLink to={"/genre/albums/?term=" + this.props.genre.genre}>
+                    <Button variant="danger" className="view-button">View Artists</Button>
                 </NavLink>
             </Card>
         )

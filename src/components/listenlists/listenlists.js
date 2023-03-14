@@ -9,10 +9,10 @@ class ListenLists extends Component {
     // Method - Visual content of the component
     render() {
         return (
-            <div className='content'>
-                    {this.props.lists.map((list) => {
-                        return <ListenList list={list} key={list.id}></ListenList>;
-                    })}
+            <div>
+                {this.props.lists.map((list) => {
+                    return <ListenList list={list} key={list.id}></ListenList>;
+                })}
             </div>   
         );
     }

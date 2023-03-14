@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user.model')
 const List = require('./models/list.model')
 const Review = require('./models/review.model')
+const GenreImage = require('./models/genreimage.model')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
@@ -48,7 +49,6 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 var accessToken = "";
-var userID = ""; // MAKE IT SO THAT THIS IS PASSED TO THE SERVER BY THE CLIENT EACH REQUEST, NOT ONLY WHEN LOGGING IN
 
 // Asynchronous function
 async function main() {
@@ -104,8 +104,11 @@ app.get('/search/:artist', async (req, res) => {
         })
 })
 
-// Listens for a GET request to '/browse/categories'
+// Listens for a GET request to '/home'
 app.get('/home', async (req, res) => {
+
+    // Get all genre images from MongoDB
+    const genreImages = await GenreImage.find({});
 
     var genreParams = {
         method: 'GET',
@@ -117,10 +120,22 @@ app.get('/home', async (req, res) => {
 
     var genres = await fetch(`https://api.spotify.com/v1/recommendations/available-genre-seeds`, genreParams)
         .then(response => response.json())
-        .then(data => { res.status(200).json(data.genres) })
+        .then(data => {
+            const matchedGenres = data.genres.map(genre => {
+                // Find the genre image that matches the current genre seed
+                const genreImage = genreImages.find(image => image.name === genre);
+                // Return an object with the genre seed and image URL
+                return { genre: genre, url: genreImage ? genreImage.url : "https://via.placeholder.com/230x230.png?text=Genre+Image"};
+            });
+            res.status(200).json(matchedGenres);
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
 })
 
-// Listens for a GET request to '/genre/:genreID'
+// Listens for a GET request to '/genre/:genreName'
 app.get('/genre/:genreName', async (req, res) => {
 
     var genreParams = {
@@ -146,6 +161,10 @@ app.get('/genre/:genreName', async (req, res) => {
             console.log(topArtists);
             return res.status(200).json(topArtists)
         })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
 })
 
 // Listens for a GET request to '/album/:albumId'
@@ -163,6 +182,10 @@ app.get('/album/:albumId', async (req, res) => {
     var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}`, albumParams)
         .then(response => response.json())
         .then(data => { res.status(200).json(data) })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
 })
 
 // Listens for a GET request to '/categories/albums'
@@ -180,6 +203,10 @@ app.get('/album/:albumId/tracks', async (req, res) => {
     var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}/tracks`, albumParams)
         .then(response => response.json())
         .then(data => { res.status(200).json(data) })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
 })
 
 // Listens for a POST request to '/register'

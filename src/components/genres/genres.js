@@ -10,7 +10,7 @@ class Genres extends Component {
     // Method - Visual content of the component
     render() {
         return (
-            <div className='categories' style={{marginLeft: '40vh', textAlign: 'center'}}>
+            <div className='genres'>
                 <Container>
                 <Table striped bordered hover variant="dark">
                     <thead>

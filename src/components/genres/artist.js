@@ -12,15 +12,15 @@ class Artist extends Component {
             <Card
                 bg="dark"
                 text="danger"
-                style={{ width: '18rem' }}
-                className="mb-2" key={this.props.artist.id}>
+                style={{ width: '18rem', marginLeft: '1%' }}
+                className="mb-2 genre-card" key={this.props.artist.id}>
                 <Card.Header>{this.props.artist.name}</Card.Header>
                 <Card.Body>
                     <Card.Img src={image} width="230.4px" height="230.4px" />
-                    <NavLink to={"/artists/albums/?term=" + this.props.artist.name}>
-                        <Button variant="danger">View Albums</Button>
-                    </NavLink>
                 </Card.Body>
+                <NavLink to={"/artists/albums/?term=" + this.props.artist.name}>
+                        <Button variant="danger" className="view-button">View Albums</Button>
+                </NavLink>
             </Card>
         )
     }

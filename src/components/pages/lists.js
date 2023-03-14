@@ -72,7 +72,7 @@ class Lists extends Component {
         const { setShow, newListName, lists } = this.state;
 
         return (
-            <div className="content">
+            <div className="list-content">
                 {lists.length === 0 ? (
                     <div>
                         <h1>No lists exist yet</h1>

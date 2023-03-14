@@ -20,7 +20,7 @@ import Login from './components/user/login';
 import Register from './components/user/register';
 import logo from './images/simplelogo.png';
 import Welcome from './components/user/welcome';
-import GenreAlbums from './components/genres/genrealbums';
+import GenreAlbums from './components/genres/genreartists';
 import ArtistAlbums from './components/genres/artistalbums';
 
 

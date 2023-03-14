@@ -137,3 +137,53 @@ input[type="radio"]{
   margin-left: 15px;
   margin-bottom: 10px;
 }
+
+.artists-content{
+  margin-left: 55vh;
+}
+
+.view-button{
+  margin-bottom: 3vh;
+}
+
+.genres{
+  margin-top: 1%;
+  margin-left: 20%;
+}
+
+.listen-list-row {
+  height: 60px;
+  width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.genre-card{
+  width: '18rem';
+  marginLeft: '10vh';
+}
+
+.listen-list-row p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.listen-list-row h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.listen-list-row button {
+  margin-left: auto;
+}
+
+.list-content{
+  margin-left: 20%;
+}
+
+.search-bar{
+  margin-top: 5%;
+  margin-left: 3%;
+  width: 150vw;
+}

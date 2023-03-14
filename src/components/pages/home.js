@@ -12,15 +12,15 @@ class Home extends Component {
 
 
     componentDidMount(){
-
         // Promise - Result of an asynchronous operation
         // Axios - Promise based HTTP client
         axios.get('http://localhost:4000/home')
             .then((response) => {
+                console.log(response.data)
                 this.setState({genres: response.data})
             })
             .catch((error) => {
-                console.log("Cannot retrieve information from server");
+                console.log("Cannot retrieve information from server: " + error);
             })
     }
 
