@@ -199,8 +199,6 @@ app.post('/register', async (req, res) => {
 // Listens for a POST request to '/register'
 app.post('/login', async (req, res) => {
 
-
-
     const user = await User.findOne({
         email: req.body.email,
         password: req.body.password
@@ -255,7 +253,7 @@ app.post('/retrieveLists', async (req, res) => {
     }
 })
 
-// Listens for a patch request to '/review' (NEED TO CHANGE THIS)
+// Listens for a patch request to '/deleteList'
 app.patch('/deleteList', async (req, res) => {
 
     try {
@@ -308,14 +306,15 @@ app.post('/review', async (req, res) => {
     }
 })
 
-
 // Listens for a get request to '/review' (NEED TO CHANGE THIS)
-app.get('/review/:albumID', async (req, res) => {
+app.post('/review/getReview', async (req, res) => {
+
+    console.log(req.body.albumID)
 
     // First check if the review already exists
     const review = await Review.findOne({
-        albumID: req.params.albumID,
-        userID: userID
+        albumID: req.body.albumID,
+        userID: req.body.userID
     })
 
     if (review) {

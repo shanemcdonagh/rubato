@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Modal, Form } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import axios from "axios";
@@ -12,15 +12,18 @@ class Album extends Component {
         super(props);
         this.state = {
             rating: 0,
-            hover: 0
+            hover: 0,
+            lists: [],
+            setShow: false
         };
 
         // Binding this keyword
+        this.handleClick = this.handleClick.bind(this);
         this.saveRating = this.saveRating.bind(this)
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/review/${this.props.album.id}`)
+        axios.post('http://localhost:4000/review/getReview', { albumID: this.props.album.id, userID: localStorage.getItem('userID') })
             .then((response) => {
                 console.log(response.data);
                 this.setState({ rating: response.data });
@@ -28,6 +31,22 @@ class Album extends Component {
             .catch((error) => {
                 console.log(`Unexpected error: ${error}`);
             })
+
+        // Allows us to select a list to add the album to
+        axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
+            .then((response) => {
+                console.log(this.state.lists)
+                this.setState({ lists: response.data })
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve lists from server: " + error);
+            });
+    }
+
+    handleClick() {
+        this.setState(prevState => ({
+            setShow: !prevState.setShow
+        }));
     }
 
     saveRating() {
@@ -54,47 +73,66 @@ class Album extends Component {
 
     render() {
 
-        const { hover, rating } = this.state
+        const { hover, rating, setShow } = this.state
+        const image = this.props.album.images[0] ? this.props.album.images[0].url : "https://via.placeholder.com/230x230.png?text=Artist+Image";
+
 
         return (
-            <Card
-                bg="dark"
-                text="danger"
-                style={{ width: '18rem' }}
-                className="mb-2" key={this.props.album.id}>
-                <Card.Header>{this.props.album.artists[0].name}</Card.Header>
-                <Card.Body>
-                    <Card.Img src={this.props.album.images[0].url} />
-                    <Card.Title>{this.props.album.name}</Card.Title>
+            <div>
+                <Card
+                    bg="dark"
+                    text="danger"
+                    style={{ width: '18rem' }}
+                    className="mb-2" key={this.props.album.id}>
+                    <Card.Header>{this.props.album.artists[0].name}</Card.Header>
+                    <Card.Body>
+                        <Card.Img src={image} width="230.4px" height="230.4px" />
+                        <Card.Title>{this.props.album.name}</Card.Title>
 
-                    {/* https://youtu.be/eDw46GYAIDQ */}
-                    <div className='rating'>
-                        {[...Array(5)].map((note, i) => {
+                        {/* https://youtu.be/eDw46GYAIDQ */}
+                        <div className='rating'>
+                            {[...Array(5)].map((note, i) => {
 
-                            const ratingScore = i + 1;
+                                const ratingScore = i + 1;
 
-                            return (
-                                <label>
-                                    <input type="radio" name="album-rating" value={ratingScore}
-                                        onClick={() => {
-                                            this.setState({ rating: ratingScore }, () => {
-                                                this.saveRating();
-                                            });
-                                        }} />
+                                return (
+                                    <label>
+                                        <input type="radio" name="album-rating" value={ratingScore}
+                                            onClick={() => {
+                                                this.setState({ rating: ratingScore }, () => {
+                                                    this.saveRating();
+                                                });
+                                            }} />
 
-                                    <IoMusicalNotesSharp className='music-note' size="30"
-                                        color={ratingScore <= (hover || rating) ? "red" : "grey"}
-                                        onMouseEnter={() => this.setState({ hover: ratingScore })}
-                                        onMouseLeave={() => this.setState({ hover: 0 })} />
-                                </label>
-                            )
-                        })}
-                    </div>
-                    <NavLink to={"/album/?term=" + this.props.album.id}>
-                        <Button variant="danger">View Album</Button>
-                    </NavLink>
-                </Card.Body>
-            </Card>
+                                        <IoMusicalNotesSharp className='music-note' size="30"
+                                            color={ratingScore <= (hover || rating) ? "red" : "grey"}
+                                            onMouseEnter={() => this.setState({ hover: ratingScore })}
+                                            onMouseLeave={() => this.setState({ hover: 0 })} />
+                                    </label>
+                                )
+                            })}
+                        </div>
+                        <NavLink to={"/album/?term=" + this.props.album.id}>
+                            <Button variant="danger">View Album</Button>
+                        </NavLink>
+                        <Button variant="danger">Add to List</Button>
+                    </Card.Body>
+                </Card>
+                {/* <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title center>Add to list</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Form - To allow us to add to the collection of lists that a user may have 
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group className="mb-3" controlId="formBasicList">
+                               
+                            </Form.Group>
+                            <Button variant="danger" type="submit">Submit</Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal> */}
+            </div>
         )
     }
 }
