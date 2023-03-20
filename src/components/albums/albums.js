@@ -14,7 +14,7 @@ class Albums extends Component {
                 <Container>
                 <Row className="mx-2 row row-col-4">
                     {this.props.albums.map((album) => {
-                        return <Album album={album} key={album.id}></Album>;
+                        return <Album album={album} key={album.id}/>;
                     })}
                 </Row>
             </Container>

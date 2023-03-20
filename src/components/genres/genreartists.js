@@ -51,7 +51,7 @@ class GenreArtists extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.state.artists.map((artist) => {
-                                            return <Artist artist={artist} key={artist.id}></Artist>;
+                                            return <Artist artist={artist} key={artist.id}/>;
                                         })}
                                     </Row>
                                 </td>

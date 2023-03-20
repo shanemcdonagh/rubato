@@ -23,7 +23,7 @@ class Genres extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.props.genres.map((genre) => {
-                                            return <Genre genre={genre} key={genre.id}></Genre>;
+                                            return <Genre genre={genre} key={genre.id}/>;
                                         })}
                                     </Row>
                                 </td>

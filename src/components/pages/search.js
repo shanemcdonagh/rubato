@@ -48,7 +48,7 @@ class Search extends Component {
             </InputGroup>
             </div>
            <div>
-           <Albums albums={this.state.albums}></Albums>
+           <Albums albums={this.state.albums}/>
            </div>
         </div>
         );

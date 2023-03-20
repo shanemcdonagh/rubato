@@ -27,7 +27,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Genres genres={this.state.genres}></Genres>
+                <Genres genres={this.state.genres}/>
             </div>  
         );
     }

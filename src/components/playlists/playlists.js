@@ -47,7 +47,7 @@ class Playlists extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.state.playlists.map((playlist) => {
-                                            return <Playlist playlist={playlist} key={playlist.id}></Playlist>;
+                                            return <Playlist playlist={playlist} key={playlist.id}/>;
                                         })}
                                     </Row>
                                 </td>
