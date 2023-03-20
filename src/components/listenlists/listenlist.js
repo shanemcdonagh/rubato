@@ -9,6 +9,8 @@ class ListenList extends Component {
         this.state = {
             deleted: false
         };
+
+        this.DeleteList = this.DeleteList.bind(this);
     }
 
     // Method - Removes list based on its id
@@ -21,7 +23,8 @@ class ListenList extends Component {
                 .then((response) => {
                     // If successful, set deleted state to true
                     this.setState({ deleted: true });
-                    console.log(response);
+                    const newLength = this.props.updateListLength(this.props.listLength - 1);
+                    console.log(newLength);
                 })
                 .catch((error) => {
                     console.log("Cannot remove list from server: " + error);

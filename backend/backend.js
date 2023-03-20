@@ -118,6 +118,7 @@ app.get('/home', async (req, res) => {
         },
     }
 
+    // BUG: SOMETIMES CRASHES? CHECK LATER
     var genres = await fetch(`https://api.spotify.com/v1/recommendations/available-genre-seeds`, genreParams)
         .then(response => response.json())
         .then(data => {
@@ -353,6 +354,29 @@ app.post('/review/getReview', async (req, res) => {
         res.json(0);
     }
 })
+
+// Listens for a GET request to '/categories/albums'
+app.get('/playlists', async (req, res) => {
+
+    var playlistParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }
+
+    // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
+    var playlists = await fetch(`https://api.spotify.com/v1/browse/featured-playlists`, playlistParams)
+        .then(response => response.json())
+        .then(data => { res.status(200).json(data) })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
+})
+
+
 
 
 

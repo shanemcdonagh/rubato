@@ -11,7 +11,7 @@ class ListenLists extends Component {
         return (
             <div>
                 {this.props.lists.map((list) => {
-                    return <ListenList list={list} key={list.id}></ListenList>;
+                    return <ListenList list={list} key={list.id} updateListLength={this.props.updateListLength} listLength={this.props.lists.length}/>;
                 })}
             </div>   
         );

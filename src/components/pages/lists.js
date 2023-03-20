@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from "axios";
 import ListenLists from "../listenlists/listenlists";
+import Playlists from "../playlists/playlists";
 
 // Lists will showcase all lists that have been created by a given user
 class Lists extends Component {
@@ -14,19 +15,25 @@ class Lists extends Component {
         this.state = {
             setShow: false,
             newListName: '',
-            lists: []
+            lists: [],
+            listLength: 0
         };
 
         // Binding this keyword
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateListLength = this.updateListLength.bind(this);
         this.handleNewListNameChange = this.handleNewListNameChange.bind(this);
     }
 
     componentDidMount() {
         axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
-                this.setState({ lists: response.data })
+                this.setState({ 
+                    lists: response.data,
+                    listLength: response.data.length
+                 })
+                 console.log(this.state.listLength)
             })
             .catch((error) => {
                 console.log("Cannot retrieve lists from server: " + error);
@@ -46,9 +53,10 @@ class Lists extends Component {
             .then((response) => {
                 console.log("List added to account: " + response.data);
 
-                // Append the new list to the existing list of lists
+                // Append the new list to the existing list of lists and update length of list
                 const newLists = [...this.state.lists, response.data];
-                this.setState({ lists: newLists });
+                this.setState({ lists: newLists});
+                this.updateListLength(this.state.listLength - 1);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server: " + error);
@@ -64,27 +72,36 @@ class Lists extends Component {
         }));
     }
 
+    updateListLength = (newLength) => {
+        this.setState({ listLength: newLength });
+    }
+
     handleNewListNameChange(event) {
         this.setState({ newListName: event.target.value });
     }
 
     render() {
-        const { setShow, newListName, lists } = this.state;
+        const { setShow, newListName, lists, listLength } = this.state;
 
         return (
             <div className="list-content">
-                {lists.length === 0 ? (
-                    <div>
-                        <h1>No lists exist yet</h1>
+                {listLength === 0 ? (
+                    <div className="noLists">
+                        <h2>No lists exist yet, need ideas?</h2>
+                        <h3 className="playlist-descriptor">See these playlists for inspiration</h3>
+                        <div className="listButton">
+                            <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
+                        </div>
+                        <div className="playlists">
+                            <Playlists/>
+                        </div>
                     </div>) : (
                     <div>
-                        <ListenLists lists={lists}></ListenLists>
+                        <ListenLists lists={lists} updateListLength={this.updateListLength}/>
+                        <div className="listButton">
+                            <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
+                        </div>
                     </div>)}
-
-
-                <div className="listButton">
-                    <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
-                </div>
 
                 <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
                     <Modal.Header closeButton>

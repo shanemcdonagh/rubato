@@ -30,9 +30,11 @@ class AlbumDetails extends Component {
         // // Axios - Promise based HTTP client
         axios.get(`http://localhost:4000/album/${term}`)
             .then((response) => {
-                this.setState({album: response.data})
-                this.setState({image: response.data.images[1]})
-                this.setState({artist: response.data.artists[0]})
+                this.setState({
+                    album: response.data,
+                    image: response.data.images[1],
+                    artist: response.data.artists[0]
+                })
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);

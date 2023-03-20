@@ -12,25 +12,25 @@ class Genres extends Component {
         return (
             <div className='genres'>
                 <Container>
-                <Table striped bordered hover variant="dark">
-                    <thead>
-                        <tr>
-                        <th>Genre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td> 
-                            <Row className="mx-2 row row-col-4 genre-list">
-                                {this.props.genres.map((genre) => {
-                                    return <Genre genre={genre} key={genre.id}></Genre>;
-                                })}
-                            </Row>
-                        </td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </Container>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                            <tr>
+                                <th>Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <Row className="mx-2 row row-col-4 genre-list">
+                                        {this.props.genres.map((genre) => {
+                                            return <Genre genre={genre} key={genre.id}></Genre>;
+                                        })}
+                                    </Row>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </Container>
             </div>
         );
     }
