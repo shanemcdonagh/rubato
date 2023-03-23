@@ -28,9 +28,9 @@ class Search extends Component {
 
     render() {
         return (
-        <div>
+        <div className="search-container">
             <div>
-            <InputGroup className="mb-3" size="lg" style={{ marginTop: '3%', marginLeft: '20%', width: '50vw' }}>
+            <InputGroup className="mb-3 search-bar" size="lg" style={{ width: '50vw' }}>
                 <FormControl
                     type="search"
                     placeholder="Search"
@@ -48,6 +48,8 @@ class Search extends Component {
             </InputGroup>
             </div>
            <div>
+           <h2>Not sure where to start?</h2>
+            <h3 className="playlist-descriptor">See these playlists for inspiration</h3>
            <Albums albums={this.state.albums}/>
            </div>
         </div>

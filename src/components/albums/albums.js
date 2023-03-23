@@ -1,24 +1,24 @@
 // Imports (React, Component and Local Components)
 import React, { Component } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import Album from './album';
 
-
-// Class Albums - Extends Component class
 class Albums extends Component {
-
-    // Method - Visual content of the component
     render() {
         return (
-            <div className='content'>
+            <div className='album-container'>
                 <Container>
-                <Row className="mx-2 row row-col-4">
+                <Row>
                     {this.props.albums.map((album) => {
-                        return <Album album={album} key={album.id}/>;
+                        return (
+                            <Col md={3} lg={4} key={album.id}>
+                                <Album album={album} />
+                            </Col>
+                        );
                     })}
                 </Row>
-            </Container>
-            </div>   
+                </Container>    
+            </div>  
         );
     }
 }

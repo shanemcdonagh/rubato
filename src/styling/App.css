@@ -161,7 +161,7 @@ input[type="radio"]{
 
 .genre-card{
   width: '18rem';
-  marginLeft: '10vh';
+  margin-left: '10vh';
 }
 
 .listen-list-row p {
@@ -212,4 +212,41 @@ input[type="radio"]{
   color: grey;
   font-size: large;
   margin-bottom: 2%;
+}
+
+.descriptor{
+  color: #bdbdbd;
+  font-size: 150%;
+  margin-bottom: 2%;
+  width:50%;
+  margin-left: 35%;
+}
+
+.welcomeMessage{
+  margin-top: 2%;
+  margin-left: 20%;
+}
+
+.welcomeLogo{
+  margin-left: 20%;
+  width: 20%;
+}
+
+.album-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.search-bar{
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
+.search-container {
+  margin-left: 15%;
+}
+
+.album {
+  width: 18rem
 }

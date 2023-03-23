@@ -336,9 +336,7 @@ app.post('/review', async (req, res) => {
 
 // Listens for a get request to '/review' (NEED TO CHANGE THIS)
 app.post('/review/getReview', async (req, res) => {
-
-    console.log(req.body.albumID)
-
+    
     // First check if the review already exists
     const review = await Review.findOne({
         albumID: req.body.albumID,
