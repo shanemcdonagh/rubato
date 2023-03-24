@@ -1,6 +1,6 @@
 // Imports (React, Component and Local Components)
 import React, { Component } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import Album from './album';
 
 class Albums extends Component {

@@ -49,8 +49,27 @@ class Album extends Component {
         }));
     }
 
-    handleSubmit(){
+    handleSubmit(event) {
+        event.preventDefault(); // Prevents the default form submission
 
+        const listID = event.target.elements.selectedList.value; // Retrieves the selected list ID from the form
+
+        const album = {
+            albumID: this.props.album.id,
+            artistName: this.props.album.artists[0].name,
+            albumName: this.props.album.name,
+            image: this.props.album.images[0].url
+        }
+
+        axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album })
+            .then((response) => {
+                console.log("Review added to profile:  " + response.data);
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve information from server: " + error);
+            })
+
+        this.setState({ setShow: false }); // Closes the modal
     }
 
     saveRating() {
@@ -121,6 +140,7 @@ class Album extends Component {
                         <Button variant="danger" onClick={this.handleClick}>Add to List</Button>
                     </Card.Body>
                 </Card>
+
                 <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Add to list</Modal.Title>

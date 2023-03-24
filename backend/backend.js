@@ -281,6 +281,21 @@ app.post('/retrieveLists', async (req, res) => {
     }
 })
 
+// Listens for a PATCH request to '/updateList'
+app.patch('/updateList', async (req, res) => {
+    try {
+      const list = await List.findOneAndUpdate(
+        { _id: req.body.listID, userID: req.body.userID },
+        { $push: { albums: req.body.album } },
+        { new: true }
+      ).exec();
+  
+      res.json(list);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  })
+
 // Listens for a patch request to '/deleteList'
 app.patch('/deleteList', async (req, res) => {
 

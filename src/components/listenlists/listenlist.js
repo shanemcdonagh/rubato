@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 
 class ListenList extends Component {
 
@@ -54,7 +55,10 @@ class ListenList extends Component {
                         </Col>
 
                         <Col>
-                            <Button variant="danger" onClick={() => { this.DeleteList() }}>Delete List</Button>
+                            <NavLink to={"/lists/albums/?term=" + this.props.list._id}>
+                                <Button variant="danger">View Albums</Button>
+                            </NavLink>
+                            <Button variant="danger" onClick={() => { this.DeleteList() }}>Delete</Button>
                         </Col>
                     </Row>
                     <hr />
