@@ -61,7 +61,7 @@ class Album extends Component {
             image: this.props.album.images[0].url
         }
 
-        axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album })
+        axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
             .then((response) => {
                 console.log("Review added to profile:  " + response.data);
             })

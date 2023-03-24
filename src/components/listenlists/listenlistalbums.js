@@ -25,10 +25,9 @@ class ListenListAlbums extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/lists/albums/${term}`)
+        axios.get(`http://localhost:4000/retrieveListAlbums/${term}`)
             .then((response) => {
                 this.setState({ albums: response.data })
-                console.log(this.state.albums)
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);
@@ -51,7 +50,7 @@ class ListenListAlbums extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.state.albums.map((album) => {
-                                            <Album album={album} />
+                                            return <Album album={album} />
                                         })}
                                     </Row>
                                 </td>

@@ -281,6 +281,19 @@ app.post('/retrieveLists', async (req, res) => {
     }
 })
 
+// Listens for a POST request to '/retrieveLists'
+app.get('/retrieveListAlbums/:listID', async (req, res) => {
+    try {
+        const list = await List.findOne({
+            _id: req.params.listID
+        }).exec();
+
+        res.json(list.albums);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
 // Listens for a PATCH request to '/updateList'
 app.patch('/updateList', async (req, res) => {
     try {
@@ -349,7 +362,7 @@ app.post('/review', async (req, res) => {
     }
 })
 
-// Listens for a get request to '/review' (NEED TO CHANGE THIS)
+// Listens for a get request to '/getReview'
 app.post('/review/getReview', async (req, res) => {
     
     // First check if the review already exists
