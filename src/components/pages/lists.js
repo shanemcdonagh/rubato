@@ -16,7 +16,8 @@ class Lists extends Component {
             setShow: false,
             newListName: '',
             lists: [],
-            listLength: 0
+            listLength: 0,
+            isLoading: true
         };
 
         // Binding this keyword
@@ -56,7 +57,7 @@ class Lists extends Component {
                 // Append the new list to the existing list of lists and update length of list
                 const newLists = [...this.state.lists, response.data];
                 this.setState({ lists: newLists });
-                this.updateListLength(this.state.listLength - 1);
+                this.updateListLength(this.state.listLength + 1);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server: " + error);

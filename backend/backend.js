@@ -126,7 +126,7 @@ app.get('/home', async (req, res) => {
                 // Find the genre image that matches the current genre seed
                 const genreImage = genreImages.find(image => image.name === genre);
                 // Return an object with the genre seed and image URL
-                return { genre: genre, url: genreImage ? genreImage.url : "https://via.placeholder.com/230x230.png?text=Genre+Image"};
+                return { genre: genre, url: genreImage ? genreImage.url : "https://via.placeholder.com/230x230.png?text=Genre+Image" };
             });
             res.status(200).json(matchedGenres);
         })
@@ -317,17 +317,17 @@ app.get('/retrieveListAlbums/:listID', async (req, res) => {
 // Listens for a PATCH request to '/updateList'
 app.patch('/updateList', async (req, res) => {
     try {
-      const list = await List.findOneAndUpdate(
-        { _id: req.body.listID, userID: req.body.userID },
-        { $push: { albums: req.body.album } },
-        { new: true }
-      ).exec();
-  
-      res.json(list);
+        const list = await List.findOneAndUpdate(
+            { _id: req.body.listID, userID: req.body.userID },
+            { $push: { albums: req.body.album } },
+            { new: true }
+        ).exec();
+
+        res.json(list);
     } catch (err) {
-      res.status(500).json(err);
+        res.status(500).json(err);
     }
-  })
+})
 
 // Listens for a patch request to '/deleteList'
 app.patch('/deleteList', async (req, res) => {
@@ -384,7 +384,7 @@ app.post('/review', async (req, res) => {
 
 // Listens for a get request to '/getReview'
 app.post('/review/getReview', async (req, res) => {
-    
+
     // First check if the review already exists
     const review = await Review.findOne({
         albumID: req.body.albumID,
@@ -399,6 +399,20 @@ app.post('/review/getReview', async (req, res) => {
         // Respond with the default rating 
         res.json(0);
     }
+})
+
+// Listens for a get request to '/allReviews'
+app.post('/review/allReviews', async (req, res) => {
+    try {
+        // First check if the review already exists
+        const reviews = await Review.find({
+            userID: req.body.userID
+        }).exec();
+        res.status(500).json(reviews);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
 })
 
 // Listens for a GET request to '/categories/albums'

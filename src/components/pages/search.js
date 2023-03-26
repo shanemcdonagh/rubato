@@ -64,7 +64,7 @@ class Search extends Component {
                 <div>
 
 
-                    {albums.length < 10 && (
+                    {albums.length === 0 && (
                         <div>
                             <h2>Not sure where to start?</h2>
                             <h3 className="playlist-descriptor">See these top albums for inspiration</h3>
