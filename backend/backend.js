@@ -200,13 +200,33 @@ app.get('/album/:albumId/tracks', async (req, res) => {
         },
     }
 
-    // Get a list of categories (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories)
     var album = await fetch(`https://api.spotify.com/v1/albums/${req.params.albumId}/tracks`, albumParams)
         .then(response => response.json())
         .then(data => { res.status(200).json(data) })
         .catch(error => {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error' });
+        });
+})
+
+// Listens for a GET request to '/topAlbums'
+app.get('/topAlbums', async (req, res) => {
+
+    var albumParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }
+
+    // Get a list of top albums
+    var albums = await fetch(`https://api.spotify.com/v1/browse/new-releases?limit=20`, albumParams)
+        .then(response => response.json())
+        .then(data => { res.status(200).json(data.albums) })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Error retrieving top albums' });
         });
 })
 

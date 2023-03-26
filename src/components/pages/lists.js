@@ -29,11 +29,11 @@ class Lists extends Component {
     componentDidMount() {
         axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
-                this.setState({ 
+                this.setState({
                     lists: response.data,
                     listLength: response.data.length
-                 })
-                 console.log(this.state.listLength)
+                })
+                console.log(this.state.listLength)
             })
             .catch((error) => {
                 console.log("Cannot retrieve lists from server: " + error);
@@ -55,7 +55,7 @@ class Lists extends Component {
 
                 // Append the new list to the existing list of lists and update length of list
                 const newLists = [...this.state.lists, response.data];
-                this.setState({ lists: newLists});
+                this.setState({ lists: newLists });
                 this.updateListLength(this.state.listLength - 1);
             })
             .catch((error) => {
@@ -93,11 +93,16 @@ class Lists extends Component {
                             <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
                         </div>
                         <div className="playlists">
-                            <Playlists/>
+                            <Playlists />
                         </div>
                     </div>) : (
                     <div>
-                        <ListenLists lists={lists} updateListLength={this.updateListLength}/>
+                        <ListenLists lists={lists} updateListLength={this.updateListLength} />
+                        {listLength < 10 && (
+                            <div className="playlists">
+                                <Playlists />
+                            </div>
+                        )}
                         <div className="listButton">
                             <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
                         </div>
