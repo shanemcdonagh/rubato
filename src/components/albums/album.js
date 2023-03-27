@@ -20,7 +20,8 @@ class Album extends Component {
         // Binding this keyword
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.saveRating = this.saveRating.bind(this)
+        this.saveRating = this.saveRating.bind(this);
+        this.saveDiaryEntry = this.saveDiaryEntry.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +33,7 @@ class Album extends Component {
                 console.log(`Unexpected error: ${error}`);
             })
 
-        // Allows us to select a list to add the album to
+        // Allows us to select a list to add the album to (MOVE THIS TO ALBUMS INSTEAD OF EACH INDIVIDUAL ALBUM)
         axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
@@ -61,15 +62,41 @@ class Album extends Component {
             image: this.props.album.images[0].url
         }
 
+        const diaryEntry = {
+            album: this.props.album.name,
+            artist: this.props.album.artists[0].name,
+            isList: true
+        }
+
         axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
             .then((response) => {
-                console.log("Review added to profile:  " + response.data);
+                this.saveDiaryEntry(diaryEntry); // Add to diary entry
+                console.log("List updated, alongside diary entry:  " + response.data);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server: " + error);
             })
 
         this.setState({ setShow: false }); // Closes the modal
+    }
+
+    saveDiaryEntry(entry) {
+        const date = new Date().toLocaleDateString();
+
+        var diaryEntry = `Reviewed ${entry.album} by ${entry.artist} with a rating of ${entry.rating} on ${date}`;
+        const listEntry = `Added ${entry.album} by ${entry.artist} to ${entry.list} on ${date}`;
+
+        if (entry.isList) {
+            diaryEntry = listEntry
+        }
+
+        axios.post('http://localhost:4000/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
+            .then((response) => {
+                console.log(response.message)
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
     }
 
     saveRating() {
@@ -85,9 +112,20 @@ class Album extends Component {
             userID: localStorage.getItem('userID')
         }
 
+        const diaryEntry = {
+            album: this.props.album.name,
+            artist: this.props.album.artists[0].name,
+            rating: this.state.rating,
+            isList: false
+        }
+
         axios.post('http://localhost:4000/review', review)
             .then((response) => {
-                console.log("Review added to profile:  " + response.data);
+
+                // Add to diary entry
+                this.saveDiaryEntry(diaryEntry);
+
+                console.log("Review added to profile alongside diary entry:  " + response.data);
             })
             .catch((error) => {
                 console.log("Cannot retrieve information from server: " + error);
