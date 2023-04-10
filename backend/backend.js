@@ -8,6 +8,7 @@ const User = require('./models/user.model')
 const List = require('./models/list.model')
 const Review = require('./models/review.model')
 const GenreImage = require('./models/genreimage.model')
+const DiaryEntry = require('./models/diary-entry.model')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
@@ -253,7 +254,6 @@ app.post('/login', async (req, res) => {
     })
 
     if (user) {
-
         // Retrieve the object id of the user (used to link documents later)
         userID = user._id.toString();
 
@@ -274,8 +274,6 @@ app.post('/login', async (req, res) => {
 
 // Listens for a POST request to '/createList'
 app.post('/createList', async (req, res) => {
-    // Create a list which links to the user (by their object id)
-    console.log(req.body.name)
     const list = await List.create({
         name: req.body.name,
         albums: [],
@@ -382,7 +380,39 @@ app.post('/review', async (req, res) => {
     }
 })
 
-// Listens for a get request to '/getReview'
+// Listens for a get request to '/allReviews'
+app.post('/createDiaryEntry', async (req, res) => {
+    try {
+        const diaryEntry = await DiaryEntry.create({
+            entry: req.body.diaryEntry,
+            userID: req.body.userID
+        })
+        res.json("Diary entry added");
+    } catch (error) {
+        res.json(`Diary Error: ${error}`);
+    }
+})
+
+// Listens for a POST request to '/retrieveDiaryEntries'
+app.post('/review/retrieveDiaryEntries', async (req, res) => {
+
+    // First check if the review already exists
+    const review = await Review.findOne({
+        albumID: req.body.albumID,
+        userID: req.body.userID
+    })
+
+    if (review) {
+        // Respond with the album rating
+        res.json(review.rating);
+    }
+    else {
+        // Respond with the default rating 
+        res.json(0);
+    }
+})
+
+// Listens for a POST request to '/getReview'
 app.post('/review/getReview', async (req, res) => {
 
     // First check if the review already exists
@@ -404,7 +434,6 @@ app.post('/review/getReview', async (req, res) => {
 // Listens for a get request to '/allReviews'
 app.post('/review/allReviews', async (req, res) => {
     try {
-        // First check if the review already exists
         const reviews = await Review.find({
             userID: req.body.userID
         }).exec();

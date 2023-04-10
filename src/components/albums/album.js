@@ -62,10 +62,14 @@ class Album extends Component {
             image: this.props.album.images[0].url
         }
 
+        const list = this.state.lists.find(list => list._id === listID);
+        const listName = list.name;
+
         const diaryEntry = {
             album: this.props.album.name,
             artist: this.props.album.artists[0].name,
-            isList: true
+            isList: true,
+            list: listName
         }
 
         axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
@@ -92,10 +96,10 @@ class Album extends Component {
 
         axios.post('http://localhost:4000/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
             .then((response) => {
-                console.log(response.message)
+                console.log(response)
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log(error);
             });
     }
 
