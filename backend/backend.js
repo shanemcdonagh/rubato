@@ -233,14 +233,19 @@ app.get('/topAlbums', async (req, res) => {
 
 // Listens for a POST request to '/register'
 app.post('/register', async (req, res) => {
-    try {
-        const user = await User.create({
+    try 
+    {
+        const user = await User.create
+        ({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password
         })
+
         res.json("Ok");
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         res.json("Duplicate email" + error);
     }
 })
@@ -248,40 +253,50 @@ app.post('/register', async (req, res) => {
 // Listens for a POST request to '/register'
 app.post('/login', async (req, res) => {
 
-    const user = await User.findOne({
+    const user = await User.findOne
+    ({
         email: req.body.email,
         password: req.body.password
     })
 
-    if (user) {
+    if (user) 
+    {
         // Retrieve the object id of the user (used to link documents later)
         userID = user._id.toString();
 
-        const token = jwt.sign({
+        const token = jwt.sign
+        ({
             name: user.name,
             email: user.email
         }, '[secretToken]-99870019')
+
         return res.json({ status: 'ok', user: token, userID: user._id.toString() })
     }
-    else {
+    else 
+    {
         // Make sure the userID is empty
         userID = user._id.toString();
 
         return res.json("Error logging in")
     }
-
 })
 
 // Listens for a POST request to '/createList'
 app.post('/createList', async (req, res) => {
-    const list = await List.create({
+    
+    const list = await List.create
+    ({
         name: req.body.name,
         albums: [],
         userID: req.body.userID
-    }, (err, result) => {
-        if (err) {
+    }, (err, result) => 
+    {
+        if (err) 
+        {
             res.status(500).json(err);
-        } else {
+        } 
+        else 
+        {
             res.json(result);
         }
     })
@@ -289,40 +304,55 @@ app.post('/createList', async (req, res) => {
 
 // Listens for a POST request to '/retrieveLists'
 app.post('/retrieveLists', async (req, res) => {
-    try {
-        const list = await List.find({
+
+    try 
+    {
+        const list = await List.find
+        ({
             userID: req.body.userID
         }).exec();
+
         res.json(list);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         res.status(500).json(err);
     }
 })
 
 // Listens for a POST request to '/retrieveLists'
 app.get('/retrieveListAlbums/:listID', async (req, res) => {
-    try {
-        const list = await List.findOne({
+    try 
+    {
+        const list = await List.findOne
+        ({
             _id: req.params.listID
         }).exec();
 
         res.json(list.albums);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         res.status(500).json(err);
     }
 })
 
 // Listens for a PATCH request to '/updateList'
 app.patch('/updateList', async (req, res) => {
-    try {
-        const list = await List.findOneAndUpdate(
+    
+    try 
+    {
+        const list = await List.findOneAndUpdate
+        (
             { _id: req.body.listID, userID: req.body.userID },
             { $push: { albums: req.body.album } },
             { new: true }
         ).exec();
 
         res.json(list);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         res.status(500).json(err);
     }
 })
@@ -330,13 +360,18 @@ app.patch('/updateList', async (req, res) => {
 // Listens for a patch request to '/deleteList'
 app.patch('/deleteList', async (req, res) => {
 
-    try {
-        const list = await List.findOneAndDelete({
+    try 
+    {
+        const list = await List.findOneAndDelete
+        ({
             name: req.body.name,
             userID: req.body.userID
         }).exec();
+
         res.json("Succesfully deleted list");
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         res.status(500).json(err);
     }
 })
@@ -346,69 +381,87 @@ app.patch('/deleteList', async (req, res) => {
 app.post('/review', async (req, res) => {
 
     // First check if the review already exists
-    const oldReview = await Review.findOne({
+    const oldReview = await Review.findOne
+    ({
         albumID: req.body.albumID,
         userID: req.body.userID
     })
 
-    if (oldReview) {
+    if (oldReview) 
+    {
         const { rating } = req.body.rating;
 
-        Review.updateOne({ _id: oldReview._id }, { rating }, (err, result) => {
-            if (err) {
+        Review.updateOne({ _id: oldReview._id }, { rating }, (err, result) => 
+        {
+            if (err) 
+            {
                 res.status(500).json(err);
-            } else {
+            } 
+            else 
+            {
                 res.json(result);
             }
         });
     }
-    else {
-        const review = await Review.create({
+    else 
+    {
+        const review = await Review.create
+        ({
             albumID: req.body.albumID,
             artistName: req.body.artistName,
             albumName: req.body.albumName,
             image: req.body.image,
             rating: req.body.rating,
             userID: req.body.userID
-        }, (err, result) => {
-            if (err) {
+        }, (err, result) =>
+        {
+            if (err) 
+            {
                 res.status(500).json(err);
-            } else {
+            } 
+            else 
+            {
                 res.json(result);
             }
         })
     }
 })
 
-// Listens for a get request to '/allReviews'
+// Listens for a GET request to '/createDiaryEntry'
 app.post('/createDiaryEntry', async (req, res) => {
-    try {
-        const diaryEntry = await DiaryEntry.create({
+    
+    try 
+    {
+        const diaryEntry = await DiaryEntry.create
+        ({
             entry: req.body.diaryEntry,
             userID: req.body.userID
         })
+
         res.json("Diary entry added");
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         res.json(`Diary Error: ${error}`);
     }
 })
 
 // Listens for a POST request to '/retrieveDiaryEntries'
-app.post('/review/retrieveDiaryEntries', async (req, res) => {
+app.post('/retrieveDiaryEntries', async (req, res) => {
 
-    // First check if the review already exists
-    const review = await Review.findOne({
-        albumID: req.body.albumID,
-        userID: req.body.userID
-    })
+    // Attempt to retrieve diary entries from the database
+    try 
+    {
+        const diaryentries = await DiaryEntry.find
+        ({
+            userID: req.body.userID
+        }).exec();
 
-    if (review) {
-        // Respond with the album rating
-        res.json(review.rating);
-    }
-    else {
-        // Respond with the default rating 
-        res.json(0);
+        res.status(200).json(diaryentries);
+    } 
+    catch (err) 
+    {
+        res.status(500).json(err);
     }
 })
 
@@ -416,16 +469,19 @@ app.post('/review/retrieveDiaryEntries', async (req, res) => {
 app.post('/review/getReview', async (req, res) => {
 
     // First check if the review already exists
-    const review = await Review.findOne({
+    const review = await Review.findOne
+    ({
         albumID: req.body.albumID,
         userID: req.body.userID
     })
 
-    if (review) {
+    if (review) 
+    {
         // Respond with the album rating
         res.json(review.rating);
     }
-    else {
+    else 
+    {
         // Respond with the default rating 
         res.json(0);
     }
@@ -433,15 +489,19 @@ app.post('/review/getReview', async (req, res) => {
 
 // Listens for a get request to '/allReviews'
 app.post('/review/allReviews', async (req, res) => {
-    try {
-        const reviews = await Review.find({
+    try 
+    {
+        const reviews = await Review.find
+        ({
             userID: req.body.userID
         }).exec();
-        res.status(500).json(reviews);
-    } catch (err) {
+
+        res.status(200).json(reviews);
+    } 
+    catch (err) 
+    {
         res.status(500).json(err);
     }
-
 })
 
 // Listens for a GET request to '/categories/albums'

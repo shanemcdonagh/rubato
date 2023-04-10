@@ -16,7 +16,7 @@ class Diary extends Component {
                 this.setState({
                     entries: response.data
                 })
-                console.log(entries)
+                console.log(this.state.entries);
             })
             .catch((error) => {
                 console.log("Cannot retrieve lists from server: " + error);
