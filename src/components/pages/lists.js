@@ -28,7 +28,7 @@ class Lists extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({
                     lists: response.data,
@@ -50,7 +50,7 @@ class Lists extends Component {
             return;
         }
 
-        axios.post('http://localhost:4000/createList', { name: newListName, userID: localStorage.getItem("userID") })
+        axios.post('http://localhost:4000/list/createList', { name: newListName, userID: localStorage.getItem("userID") })
             .then((response) => {
                 console.log("List added to account: " + response.data);
 
@@ -86,6 +86,7 @@ class Lists extends Component {
 
         return (
             <div className="list-content">
+                <h2 className="welcomeMessage"><b>LISTS</b></h2>
                 {listLength === 0 ? (
                     <div className="noLists">
                         <h2>No lists exist yet, need ideas?</h2>

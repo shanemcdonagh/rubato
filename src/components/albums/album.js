@@ -34,7 +34,7 @@ class Album extends Component {
             })
 
         // Allows us to select a list to add the album to (MOVE THIS TO ALBUMS INSTEAD OF EACH INDIVIDUAL ALBUM)
-        axios.post('http://localhost:4000/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
                 console.log(this.state.lists)
@@ -72,7 +72,7 @@ class Album extends Component {
             list: listName
         }
 
-        axios.patch('http://localhost:4000/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
+        axios.patch('http://localhost:4000/list/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
             .then((response) => {
                 this.saveDiaryEntry(diaryEntry); // Add to diary entry
                 console.log("List updated, alongside diary entry:  " + response.data);

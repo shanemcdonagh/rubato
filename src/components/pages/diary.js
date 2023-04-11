@@ -28,6 +28,7 @@ class Diary extends Component {
     render() {
         return (
             <div>
+                <h2 className="welcomeMessage"><b>DIARY</b></h2>
                 <DiaryEntries entries={this.state.entries}/>
 
                 {this.state.entries.length < 10 && (

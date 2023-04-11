@@ -33,7 +33,7 @@ class Login extends Component {
             password: this.state.password
         }
 
-        axios.post('http://localhost:4000/login', loggedUser)
+        axios.post('http://localhost:4000/user/login', loggedUser)
         .then((response) => {
             const data = response.data
 

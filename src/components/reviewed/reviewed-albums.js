@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { Container, Row, Table } from 'react-bootstrap';
 import axios from "axios";
-import Album from '../albums/album';
+import Artist from "../genres/artist";
 
 // Class Plants - Extends Component class
-class ListenListAlbums extends Component {
+class ReviewedAlbums extends Component {
 
     constructor(props) {
         super(props);
@@ -16,22 +16,9 @@ class ListenListAlbums extends Component {
     }
 
     // Method: Called first when component is mounted into view
-    componentDidMount() {
-
-        // Reference: https://herewecode.io/blog/react-get-url-params/
-        // Allows to retrieve the genreID from the url parameters
-        const queryParameters = new URLSearchParams(window.location.search)
-        const term = queryParameters.get("term")
-
-        // // Promise - Result of an asynchronous operation
-        // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/list/retrieveListAlbums/${term}`)
-            .then((response) => {
-                this.setState({ albums: response.data })
-            })
-            .catch((error) => {
-                console.log("Cannot retrieve information from server " + error);
-            })
+    componentDidMount() 
+    {
+        
     }
 
     // Method - Visual content of the component
@@ -42,15 +29,15 @@ class ListenListAlbums extends Component {
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
-                                <th>Albums</th>
+                                <th>Albums Reviewed</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
-                                        {this.state.albums.map((album) => {
-                                            return <Album album={album} />
+                                        {this.state.albums.map((artist) => {
+                                            return <Album album={album} key={album.id} />;
                                         })}
                                     </Row>
                                 </td>
@@ -63,4 +50,4 @@ class ListenListAlbums extends Component {
     }
 }
 
-export default ListenListAlbums;
+export default DiaryArtists;
