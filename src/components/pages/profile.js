@@ -1,92 +1,146 @@
 import React, { Component } from "react";
-import {Image, Button, Container, Modal, Form} from "react-bootstrap";
+import { Image, Button, Container, Modal, Form } from "react-bootstrap";
+import axios from "axios";
 import StyledHeader from "../../styling/Header";
-import styled from 'styled-components/macro';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userDetails: [],
+      showEditPictureModal: false,
+      newPictureUrl: "",
+      newPictureFile: null
+    };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            setShow: false,
-            profilePic: ''
-        };
+    this.handleEditPicture = this.handleEditPicture.bind(this);
+    this.handlePictureUrlChange = this.handlePictureUrlChange.bind(this);
+    this.handlePictureFileChange = this.handlePictureFileChange.bind(this);
+    this.handleCancelPictureEdit = this.handleCancelPictureEdit.bind(this);
+    this.handleSavePicture = this.handleSavePicture.bind(this);
+  }
 
-        // Binding this keyword
-        this.handleClick = this.handleClick.bind(this)
-        this.handleImageChange = this.handleImageChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    
-    handleClick() {
-        if(!this.state.setShow)
-        {
-            this.setState({ setShow: true })
-        }
-        else
-        {
-            this.setState({ setShow: false })
-        }     
-    }
+  componentDidMount() {
+    axios
+      .post("http://localhost:4000/user/userDetails", {
+        userID: localStorage.getItem("userID")
+      })
+      .then(response => {
+        this.setState({
+          userDetails: response.data
+        });
+        console.log(this.state.userDetails);
+      })
+      .catch(error => {
+        console.log("Cannot retrieve user data from server: " + error);
+      });
+  }
 
-    handleImageChange(e) {
-        e.preventDefault();
-        const reader = new FileReader();
-        const file = e.target.files[0];
-    
-        reader.onloadend = () => {
+  handleEditPicture() {
+    this.setState({ showEditPictureModal: true });
+  }
+
+  handlePictureUrlChange(event) {
+    this.setState({ newPictureUrl: event.target.value });
+  }
+
+  handlePictureFileChange(event) {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onload = e => {
+      this.setState({
+        newPictureFile: file,
+        newPictureUrl: e.target.result
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  handleCancelPictureEdit() {
+    this.setState({
+      showEditPictureModal: false,
+      newPictureUrl: "",
+      newPictureFile: null
+    });
+  }
+
+  handleSavePicture() {
+    const { newPictureFile } = this.state;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(newPictureFile);
+    reader.onload = () => {
+      axios
+        .patch(`http://localhost:4000/user/updateProfilePicture`, {
+          userID: localStorage.getItem("userID"),
+          image: reader.result
+        })
+        .then(response => {
           this.setState({
-            profilePic: reader.result
+            userDetails: response.data,
+            showEditPictureModal: false,
+            newPictureUrl: "",
+            newPictureFile: null
           });
-        };
-    
-        reader.readAsDataURL(file);
-      }
-    
-      handleSubmit(e){
-        e.preventDefault();
-        // Upload the file to a server or do whatever we need to do with the file here
-        console.log('File uploaded:', this.state.profilePic);
-      }
-    
-    
-    render() {
+        })
+        .catch(error => {
+          console.log("Cannot update user data: " + error);
+        });
+    };
+  }
 
-        const {setShow} = this.state
+  render() {
+    const { userDetails, showEditPictureModal, newPictureUrl } = this.state;
 
-        let { profilePic } = this.state;
-        let $profilePicPreview = null;
-
-        if (profilePic)
-        {
-            $profilePicPreview = <Image src={profilePic} width="150px" roundedCircle/>;
-        } 
-        else 
-        {
-            $profilePicPreview = <Image src="http://groovesharks.org/assets/images/default_avatar.jpg" width="150px" roundedCircle/>;
-        }
-
-        return (
-        <div className="content">
-            <div className="profile">
-            <StyledHeader type="user">
+    return (
+      <div className="content">
+        <div className="profile">
+          <StyledHeader type="user">
             <div className="header__inner">
-                {$profilePicPreview} 
+              <Image
+                src={userDetails.image}
+                width="150px"
+                roundedCircle
+              />
               <div>
                 <div className="header__overline">Profile</div>
-                <h1 className="header__name">Shane McDonagh</h1>
+                <h1 className="header__name">{userDetails.name}</h1>
                 <p className="header__meta">
-                  <span>
-                    0 Reviews
-                  </span>
+                  <span>0 Reviews</span>
                 </p>
+                <Button variant="danger" onClick={this.handleEditPicture}>
+                  Edit picture
+                </Button>
               </div>
             </div>
           </StyledHeader>
-            </div>
         </div>
-        )
-    }
+        <Modal show={showEditPictureModal} onHide={this.handleCancelPictureEdit}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit profile picture</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="pictureUrl">
+                <Form.Label>Upload new picture</Form.Label>
+                <Form.Control type="file" onChange={this.handlePictureFileChange} />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCancelPictureEdit}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={this.handleSavePicture}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    )
+  }
 }
 
 // Export for use in App.js

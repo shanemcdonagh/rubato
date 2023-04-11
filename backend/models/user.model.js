@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 const User = new mongoose.Schema({
     name: {type: String, required: true},
+    image: { type: String, default: "http://groovesharks.org/assets/images/default_avatar.jpg" },
     email: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    quote: {type: String}
+    password: {type: String, required: true}
 },
 {collection: 'user-data'}
 )

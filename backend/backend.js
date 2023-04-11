@@ -19,10 +19,6 @@ app.use('/static', express.static(path.join(__dirname, 'build//static')));
 app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()) // parse application/json
 
-// Specifies what the server can parse
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
 // Allows for requests and responses to be made over different domains
 app.use(cors());
 

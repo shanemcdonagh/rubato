@@ -56,4 +56,36 @@ router.post('/register', async (req, res) => {
     }
 })
 
+// Listens for a POST request to '/userDetails'
+router.post('/userDetails', async (req, res) => {
+    try 
+    {
+        const user = await User.findOne
+        ({
+            _id: req.body.userID
+        }).exec();
+        
+        res.json(user);
+    } 
+    catch (err) 
+    {
+        res.status(500).json(err);
+    }
+})
+
+// Listens for a PATCH request to '/register'
+router.patch('/updateProfilePicture', async (req, res) => {
+
+    // Retrieve the image url and update the users profile picture
+    const { image } = req.body;
+
+    User.updateOne({ _id: req.body.userID }, { image })
+    .then(result => {
+      res.json(result);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+})
+
 module.exports = router;
