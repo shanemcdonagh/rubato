@@ -218,7 +218,7 @@ app.get('/topAlbums', async (req, res) => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
-        },
+        }
     }
 
     // Get a list of top albums
@@ -228,6 +228,29 @@ app.get('/topAlbums', async (req, res) => {
         .catch(error => {
             console.error(error);
             res.status(500).json({ message: 'Error retrieving top albums' });
+        });
+})
+
+// Listens for a GET request to '/topAlbums'
+app.get('/topArtists', async (req, res) => {
+
+    let currentYear = new Date().getFullYear();
+   
+    var artistParams = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    }
+
+    // Get a list of top artists
+    var artists = await fetch(`https://api.spotify.com/v1/search?query=year:${currentYear}&type=artist&market=US&offset=0&limit=20`, artistParams)
+        .then(response => response.json())
+        .then(data => { res.status(200).json(data.artists.items),console.log(data.artists.items)})
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Error retrieving top artists' });
         });
 })
 

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DiaryEntries from "../diary-entries/diary-entries";
+import DiaryArtists from "../diary-entries/diary-artists";
 
 class Diary extends Component {
 
@@ -25,7 +27,19 @@ class Diary extends Component {
 
     render() {
         return (
-            <div className="content"><p>This is the Diary Page (where recent activity and reviews will be displayed)</p></div>
+            <div>
+                <DiaryEntries entries={this.state.entries}/>
+
+                {this.state.entries.length < 10 && (
+                        <div>
+                            <h2>Haven't a clue who to explore?</h2>
+                            <h3 className="playlist-descriptor">See these top artists for inspiration</h3>
+                            <div className="playlists">
+                                <DiaryArtists/>
+                            </div>
+                        </div>
+                    )}
+            </div>
         );
 
     }
