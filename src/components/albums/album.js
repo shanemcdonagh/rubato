@@ -94,7 +94,7 @@ class Album extends Component {
             diaryEntry = listEntry
         }
 
-        axios.post('http://localhost:4000/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
+        axios.post('http://localhost:4000/diary/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
             .then((response) => {
                 console.log(response)
             })

@@ -5,7 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const GenreImage = require('./models/genreimage.model')
-const DiaryEntry = require('./models/diary-entry.model')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 require('dotenv').config();
 
@@ -30,10 +29,12 @@ app.use(cors());
 const userRoute = require('./routes/User');
 const listRoute = require('./routes/List');
 const reviewRoute = require('./routes/Review');
+const diaryRoute = require('./routes/Diary');
 
 app.use("/user",userRoute);
 app.use("/list",listRoute);
 app.use("/review",reviewRoute);
+app.use("/diary",diaryRoute);
 
 // Specifies the HTTP methods in which can be used from different domains and from where
 app.use(function (req, res, next) {
@@ -257,45 +258,7 @@ app.get('/topArtists', async (req, res) => {
         });
 })
 
-// Listens for a GET request to '/createDiaryEntry'
-app.post('/createDiaryEntry', async (req, res) => {
-    
-    try 
-    {
-        const diaryEntry = await DiaryEntry.create
-        ({
-            entry: req.body.diaryEntry,
-            userID: req.body.userID
-        })
-
-        res.json("Diary entry added");
-    } 
-    catch (error) 
-    {
-        res.json(`Diary Error: ${error}`);
-    }
-})
-
-// Listens for a POST request to '/retrieveDiaryEntries'
-app.post('/retrieveDiaryEntries', async (req, res) => {
-
-    // Attempt to retrieve diary entries from the database
-    try 
-    {
-        const diaryentries = await DiaryEntry.find
-        ({
-            userID: req.body.userID
-        }).sort({ timestamp: -1 }).exec();
-
-        res.status(200).json(diaryentries);
-    } 
-    catch (err) 
-    {
-        res.status(500).json(err);
-    }
-})
-
-// Listens for a GET request to '/playlists'
+// Listens for a GET request to '/categories/albums'
 app.get('/playlists', async (req, res) => {
 
     var playlistParams = {

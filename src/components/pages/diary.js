@@ -13,7 +13,7 @@ class Diary extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:4000/retrieveDiaryEntries', { userID: localStorage.getItem("userID") })
+        axios.post('http://localhost:4000/diary/retrieveDiaryEntries', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({
                     entries: response.data

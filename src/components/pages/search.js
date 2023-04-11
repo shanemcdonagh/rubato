@@ -18,7 +18,7 @@ class Search extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/topAlbums')
+        axios.get('http://localhost:4000/search/topAlbums')
             .then((response) => {
 
                 this.setState({ topAlbums: response.data.items })
