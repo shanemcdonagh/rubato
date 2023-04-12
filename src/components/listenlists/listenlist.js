@@ -52,13 +52,15 @@ class ListenList extends Component {
                             <p>Albums</p>
                             <h3>{this.props.list.albums.length}</h3>
                         </Col>
-
                         <Col>
+                        <div>
                             <NavLink to={"/lists/albums/?term=" + this.props.list._id}>
-                                <Button variant="danger">View Albums</Button>
+                                <Button className='list-button' variant="danger">View Albums</Button>
                             </NavLink>
                             <Button variant="danger" onClick={() => { this.DeleteList() }}>Delete</Button>
+                         </div>   
                         </Col>
+                        
                     </Row>
                 </Container>
             </div>

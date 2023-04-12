@@ -271,3 +271,16 @@ input[type="radio"]{
   justify-content: space-between;
   margin-top: 10px;
 }
+
+.list-button{
+  margin-right: 5%;
+}
+
+.album-button{
+  margin-right: 5%;
+}
+
+.listMessage{
+  margin-top: 5%;
+  margin-right: 4%;
+}

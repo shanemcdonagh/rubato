@@ -86,7 +86,7 @@ class Lists extends Component {
 
         return (
             <div className="list-content">
-                <h2 className="welcomeMessage"><b>LISTS</b></h2>
+                <h2 className="listMessage"><b>LISTS</b></h2>
                 {listLength === 0 ? (
                     <div className="noLists">
                         <h2>No lists exist yet, need ideas?</h2>
@@ -100,14 +100,15 @@ class Lists extends Component {
                     </div>) : (
                     <div>
                         <ListenLists lists={lists} updateListLength={this.updateListLength} />
-                        {listLength < 10 && (
-                            <div className="playlists">
-                                <Playlists />
-                            </div>
-                        )}
                         <div className="listButton">
                             <Button variant="danger" onClick={this.handleClick}>Create a list</Button>
                         </div>
+                        {listLength < 10 && (
+                            <div className="playlists">
+                                <h3 className="playlist-descriptor">See these playlists for inspiration</h3>
+                                <Playlists />
+                            </div>
+                        )}
                     </div>)}
 
                 <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">

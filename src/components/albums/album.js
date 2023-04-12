@@ -178,7 +178,7 @@ class Album extends Component {
                         </div>
                         <div className="album-button-wrapper">
                             <NavLink to={"/album/?term=" + this.props.album.id}>
-                                <Button variant="danger">View Album</Button>
+                                <Button className="album-button" variant="danger">View Album</Button>
                             </NavLink>
                             <Button variant="danger" onClick={this.handleClick}>Add to List</Button>
                         </div>
