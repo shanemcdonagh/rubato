@@ -6,7 +6,7 @@ import DiaryEntry from './diary-entry';
 class DiaryEntries extends Component {
     render() {
         return (
-            <div>
+            <div className>
                 {this.props.entries.map((entry) => {
                     return <DiaryEntry entry={entry} />;
                 })}

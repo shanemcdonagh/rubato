@@ -12,8 +12,10 @@ class Albums extends Component {
                     {this.props.albums.map((album) => {
                         return (
                             <Col md={3} lg={4} key={album.id}>
-                                <Album album={album} />
-                            </Col>
+                                    <div className='album-wrapper'>
+                                        <Album album={album} />
+                                    </div> 
+                            </Col>   
                         );
                     })}
                 </Row>

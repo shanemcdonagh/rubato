@@ -42,8 +42,7 @@ class ListenList extends Component {
         return (
             <div>
                 {/* Props - Accesses data passed as a property to current component */}
-                <Container className='container-fluid'>
-                    <hr />
+                <Container className='container-fluid list-item'>
                     <Row className="listen-list-row">
                         <Col>
                             <p>Name</p>
@@ -61,7 +60,6 @@ class ListenList extends Component {
                             <Button variant="danger" onClick={() => { this.DeleteList() }}>Delete</Button>
                         </Col>
                     </Row>
-                    <hr />
                 </Container>
             </div>
         )

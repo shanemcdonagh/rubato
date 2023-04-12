@@ -147,7 +147,7 @@ class Album extends Component {
                 <Card
                     bg="dark"
                     text="danger"
-                    className="mb-2 album" key={this.props.album.id}>
+                    className="mb-2 album-wrapper" key={this.props.album.id}>
                     <Card.Header>{this.props.album.artists[0].name}</Card.Header>
                     <Card.Body>
                         <Card.Img src={image} width="230.4px" height="230.4px" />
@@ -176,10 +176,13 @@ class Album extends Component {
                                 )
                             })}
                         </div>
-                        <NavLink to={"/album/?term=" + this.props.album.id}>
-                            <Button variant="danger">View Album</Button>
-                        </NavLink>
-                        <Button variant="danger" onClick={this.handleClick}>Add to List</Button>
+                        <div className="album-button-wrapper">
+                            <NavLink to={"/album/?term=" + this.props.album.id}>
+                                <Button variant="danger">View Album</Button>
+                            </NavLink>
+                            <Button variant="danger" onClick={this.handleClick}>Add to List</Button>
+                        </div>
+
                     </Card.Body>
                 </Card>
 

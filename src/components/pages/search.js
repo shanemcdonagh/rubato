@@ -43,7 +43,7 @@ class Search extends Component {
 
         return (
             <div className="search-container">
-                <div>
+                <div className="search-bar-container">
                     <InputGroup className="mb-3 search-bar" size="lg" style={{ width: '50vw' }}>
                         <FormControl
                             type="search"

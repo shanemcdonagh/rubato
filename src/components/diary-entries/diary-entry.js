@@ -7,7 +7,7 @@ class DiaryEntry extends Component {
         return (
             <div>
                 {/* Props - Accesses data passed as a property to current component */}
-                <Container className='container-fluid'>
+                <Container className='container-fluid list-item diary-item'>
                     <hr />
                     <Row className="listen-list-row">
                         <Col>

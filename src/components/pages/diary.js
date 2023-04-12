@@ -27,7 +27,7 @@ class Diary extends Component {
 
     render() {
         return (
-            <div>
+            <div className="diary-component">
                 <h2 className="welcomeMessage"><b>DIARY</b></h2>
                 <DiaryEntries entries={this.state.entries}/>
 
