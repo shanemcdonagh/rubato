@@ -60,7 +60,6 @@ class ListenList extends Component {
                             <Button variant="danger" onClick={() => { this.DeleteList() }}>Delete</Button>
                          </div>   
                         </Col>
-                        
                     </Row>
                 </Container>
             </div>

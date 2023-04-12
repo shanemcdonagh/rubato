@@ -74,7 +74,9 @@ class Search extends Component {
                         </div>
                     )}
 
-                    <Albums albums={albums} />
+                    <div className="playlists">
+                        <Albums albums={albums} />
+                    </div>
                 </div>
             </div>
         );

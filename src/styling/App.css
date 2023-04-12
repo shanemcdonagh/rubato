@@ -284,3 +284,56 @@ input[type="radio"]{
   margin-top: 5%;
   margin-right: 4%;
 }
+
+.album-details-image{
+  box-sizing: border-box;
+  position: absolute;
+  width: 337px;
+  height: 333px;
+  left: 400px;
+  top: 62px;
+}
+
+.album-details-albumName{
+  position: absolute;
+  width: 761px;
+  height: 94px;
+  left: 900px;
+  top: 115px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 94px;
+  color: #FFFFFF;
+}
+
+.album-details-artist{
+  position: absolute;
+  width: 500px;
+  height: 70px;
+  left: 910px;
+  top: 228px;
+  margin-top:2%;
+
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 70px;
+
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.album-details-stars{
+  position: absolute;
+  width: 318px;
+  height: 59px;
+  left: 865px;
+  top: 324px;
+}
+
+.albumDetails{
+  margin-left: 15%;
+}
+
