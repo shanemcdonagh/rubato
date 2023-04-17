@@ -6,75 +6,66 @@ router.use(cors())
 
 // Listens for a POST request to '/createList'
 router.post('/createList', async (req, res) => {
-    
+
     const list = await List.create
-    ({
-        name: req.body.name,
-        albums: [],
-        userID: req.body.userID
-    }, (err, result) => 
-    {
-        if (err) 
-        {
-            res.status(500).json(err);
-        } 
-        else 
-        {
-            res.json(result);
-        }
-    })
+        ({
+            name: req.body.name,
+            albums: [],
+            userID: req.body.userID
+        }, (err, result) => {
+            if (err) {
+                res.status(500).json(err);
+            }
+            else {
+                res.json(result);
+            }
+        })
 })
 
 // Listens for a POST request to '/retrieveLists'
 router.post('/retrieveLists', async (req, res) => {
-    try 
-    {
+    try {
         const list = await List.find
-        ({
-            userID: req.body.userID
-        }).exec();
-        
+            ({
+                userID: req.body.userID
+            }).exec();
+
         res.json(list);
-    } 
-    catch (err) 
-    {
+    }
+    catch (err) {
         res.status(500).json(err);
     }
 })
 
 // Listens for a POST request to '/retrieveListAlbums:listID'
 router.get('/retrieveListAlbums/:listID', async (req, res) => {
-    try 
-    {
+    try {
         const list = await List.findOne
-        ({
-            _id: req.params.listID
-        }).exec();
+            ({
+                _id: req.params.listID
+            }).exec();
 
         res.json(list.albums);
-    } 
-    catch (err) 
-    {
+    }
+    catch (err) {
         res.status(500).json(err);
     }
 })
 
 // Listens for a PATCH request to '/updateList'
 router.patch('/updateList', async (req, res) => {
-    
-    try 
-    {
+
+    try {
         const list = await List.findOneAndUpdate
-        (
-            { _id: req.body.listID, userID: req.body.userID },
-            { $push: { albums: req.body.album } },
-            { new: true }
-        ).exec();
+            (
+                { _id: req.body.listID, userID: req.body.userID },
+                { $push: { albums: req.body.album } },
+                { new: true }
+            ).exec();
 
         res.json(list);
-    } 
-    catch (err) 
-    {
+    }
+    catch (err) {
         res.status(500).json(err);
     }
 })
@@ -82,18 +73,42 @@ router.patch('/updateList', async (req, res) => {
 // Listens for a patch request to '/deleteList'
 router.patch('/deleteList', async (req, res) => {
 
-    try 
-    {
+    try {
         const list = await List.findOneAndDelete
-        ({
-            name: req.body.name,
-            userID: req.body.userID
-        }).exec();
+            ({
+                name: req.body.name,
+                userID: req.body.userID
+            }).exec();
 
         res.json("Succesfully deleted list");
-    } 
-    catch (err) 
-    {
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+// Listens for a patch request to '/deleteAlbum'
+// Listens for a patch request to '/deleteAlbum'
+router.patch('/deleteAlbum', async (req, res) => {
+    const { userID, listID, albumID } = req.body;
+
+    console.log(albumID);
+
+    try {
+        const list = await List.updateOne(
+            {
+                userID: userID,
+                _id: listID
+            },
+            {
+                $pull: {
+                    albums: { id: albumID }
+                }
+            }
+        ).exec();
+
+        res.json("Successfully deleted album from list");
+    } catch (err) {
         res.status(500).json(err);
     }
 })

@@ -108,20 +108,25 @@ class Album extends Component {
 
     saveRating() {
 
-        console.log(this.state.rating)
+        const { album } = this.props;
+        const artistName = album.artistName || album.artists[0]?.name;
+        const albumName = album.albumName || album.name;
+        const image = album.image || album.images[0]?.url || "https://via.placeholder.com/230x230.png?text=Artist+Image";
+        const albumID = this.props.album.id || this.props.album.albumID;
+
 
         const review = {
-            albumID: this.props.album.id,
-            artistName: this.props.album.artists[0].name,
-            albumName: this.props.album.name,
-            image: this.props.album.images[0].url,
+            albumID: {albumID},
+            artistName: {artistName},
+            albumName: {albumName},
+            image: {image},
             rating: this.state.rating,
             userID: localStorage.getItem('userID')
         }
 
         const diaryEntry = {
-            album: this.props.album.name,
-            artist: this.props.album.artists[0].name,
+            album: {albumName},
+            artist: {artistName},
             rating: this.state.rating,
             isList: false
         }
