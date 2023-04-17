@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Table } from 'react-bootstrap';
 import axios from "axios";
-import Artist from "../genres/artist";
+import Album from "../albums/album"
 
 // Class Plants - Extends Component class
 class ReviewedAlbums extends Component {
@@ -16,9 +16,19 @@ class ReviewedAlbums extends Component {
     }
 
     // Method: Called first when component is mounted into view
-    componentDidMount() 
-    {
-        
+    componentDidMount() {
+        axios.post("http://localhost:4000/review/allReviews", {
+            userID: localStorage.getItem("userID")
+        })
+            .then(response => {
+                this.setState({
+                    albums: response.data
+                });
+                console.log(this.state.albums);
+            })
+            .catch(error => {
+                console.log("Cannot retrieve reviews from server: " + error);
+            });
     }
 
     // Method - Visual content of the component
@@ -36,7 +46,7 @@ class ReviewedAlbums extends Component {
                             <tr>
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
-                                        {this.state.albums.map((artist) => {
+                                        {this.state.albums.map((album) => {
                                             return <Album album={album} key={album.id} />;
                                         })}
                                     </Row>
@@ -50,4 +60,4 @@ class ReviewedAlbums extends Component {
     }
 }
 
-export default DiaryArtists;
+export default ReviewedAlbums;

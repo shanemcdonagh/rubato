@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Image, Button, Container, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import StyledHeader from "../../styling/Header";
+import ReviewedAlbums from "../reviewed/reviewed-albums";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userDetails: [],
+      reviews: [],
       showEditPictureModal: false,
       newPictureUrl: "",
       newPictureFile: null
@@ -21,8 +23,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    axios
-      .post("http://localhost:4000/user/userDetails", {
+    axios.post("http://localhost:4000/user/userDetails", {
         userID: localStorage.getItem("userID")
       })
       .then(response => {
@@ -138,6 +139,7 @@ class Profile extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <ReviewedAlbums/>
       </div>
     )
   }

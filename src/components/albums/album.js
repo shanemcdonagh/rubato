@@ -25,7 +25,10 @@ class Album extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:4000/review/getReview', { albumID: this.props.album.id, userID: localStorage.getItem('userID') })
+
+        const albumID = this.props.album.id || this.props.album.albumID
+
+        axios.post('http://localhost:4000/review/getReview', {albumID, userID: localStorage.getItem('userID') })
             .then((response) => {
                 this.setState({ rating: response.data });
             })
@@ -138,20 +141,24 @@ class Album extends Component {
 
     render() {
 
+        const { album } = this.props;
         const { hover, rating, setShow } = this.state
-        const image = this.props.album.images[0] ? this.props.album.images[0].url : "https://via.placeholder.com/230x230.png?text=Artist+Image";
         const date = new Date(this.props.album.release_date);
-
+        const artistName = album.artistName || album.artists[0]?.name;
+        const albumName = album.albumName || album.name;
+        const image = album.image || album.images[0]?.url || "https://via.placeholder.com/230x230.png?text=Artist+Image";
+        const albumID = this.props.album.id || this.props.album.albumID
+        
         return (
             <div>
                 <Card
                     bg="dark"
                     text="danger"
-                    className="mb-2 album-wrapper" key={this.props.album.id}>
-                    <Card.Header>{this.props.album.artists[0].name}</Card.Header>
+                    className="mb-2 album-wrapper" key={albumID}>
+                    <Card.Header>{artistName}</Card.Header>
                     <Card.Body>
                         <Card.Img src={image} width="230.4px" height="230.4px" />
-                        <Card.Title>{this.props.album.name} ({date.getFullYear()})</Card.Title>
+                        <Card.Title>{albumName} ({date.getFullYear() || album.year})</Card.Title>
 
                         {/* https://youtu.be/eDw46GYAIDQ */}
                         <div className='rating'>
@@ -177,7 +184,7 @@ class Album extends Component {
                             })}
                         </div>
                         <div className="album-button-wrapper">
-                            <NavLink to={"/album/?term=" + this.props.album.id}>
+                            <NavLink to={"/album/?term=" + albumID}>
                                 <Button className="album-button" variant="danger">View Album</Button>
                             </NavLink>
                             <Button variant="danger" onClick={this.handleClick}>Add to List</Button>
