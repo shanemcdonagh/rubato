@@ -45,6 +45,10 @@ class ListenListAlbums extends Component {
             axios.patch("http://localhost:4000/list/deleteAlbum/", { albumID, listID: this.state.listID, userID: localStorage.getItem("userID") })
                 .then((response) => {
                     console.log(response.data);
+
+                    // Remove the deleted album from the state
+                    const updatedAlbums = this.state.albums.filter(album => album.id !== albumID);
+                    this.setState({ albums: updatedAlbums });
                 })
                 .catch((error) => {
                     console.log("Cannot remove list from server: " + error);
@@ -68,7 +72,7 @@ class ListenListAlbums extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.state.albums.map((album) => {
-                                           return <div>
+                                            return <div>
                                                 <Album album={album} />
                                                 <Button variant="danger" onClick={() => { this.DeleteFromList(album.id) }}>Remove Album</Button>
                                             </div>
