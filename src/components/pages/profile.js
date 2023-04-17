@@ -98,22 +98,21 @@ class Profile extends Component {
     return (
       <div className="content">
         <div className="profile">
-          <StyledHeader type="user">
-            <div className="header__inner">
-              <Image
+          <StyledHeader type="user" className="header">
+            <div>
+              <div>
+                <div className="header__overline">Profile</div>
+                <h1 className="header__name">{userDetails.name}</h1>
+                <Image
                 src={userDetails.image}
                 width="150px"
                 roundedCircle
               />
               <div>
-                <div className="header__overline">Profile</div>
-                <h1 className="header__name">{userDetails.name}</h1>
-                <p className="header__meta">
-                  <span>0 Reviews</span>
-                </p>
                 <Button variant="danger" onClick={this.handleEditPicture}>
-                  Edit picture
+                    Edit picture
                 </Button>
+              </div>
               </div>
             </div>
           </StyledHeader>
@@ -139,7 +138,9 @@ class Profile extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <ReviewedAlbums/>
+        <div className="reviewed">
+           <ReviewedAlbums/>
+        </div>
       </div>
     )
   }

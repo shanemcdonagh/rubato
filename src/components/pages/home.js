@@ -34,7 +34,7 @@ class Home extends Component {
                     <p className="descriptor">Rubato can be used as a diary, to track/review albums you've been
                         listening to, or even as a way to list your favourite albums and artists.
                     </p>
-                    <p className="descriptor">Begin by browsing a genre orexploring artists of your choosing, you decide your music</p>
+                    <p className="descriptor">Begin by browsing a genre or exploring artists of your choosing, you decide your music</p>
                 </div>
 
                 <Genres genres={this.state.genres} />

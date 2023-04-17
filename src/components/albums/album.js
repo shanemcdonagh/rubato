@@ -4,6 +4,9 @@ import { NavLink } from "react-router-dom";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import axios from "axios";
 
+import SpotifyWebApi from 'spotify-web-api-js';
+const spotifyApi = new SpotifyWebApi();
+
 class Album extends Component {
 
     // Allows us to set an initial state for ratings
@@ -44,6 +47,13 @@ class Album extends Component {
             })
             .catch((error) => {
                 console.log("Cannot retrieve lists from server: " + error);
+            });
+
+        // Retrieve album tracks
+        spotifyApi.getAlbumTracks(albumID).then((response) => {
+            console.log(response);
+            }).catch((error) => {
+            console.log(error);
             });
     }
 

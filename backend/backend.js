@@ -56,21 +56,33 @@ async function main() {
     // Connect to the database
     mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true });
 
-    // Retrieve Spotify API Access Token (Promise)
-    // Used to retrieve retrieve a Spotify API access token
-    var authenticationParams = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+    async function getAccessToken() {
+        var authenticationParams = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+        }
+        
+        // Make a request to the Spotify API to get an access token
+        const response = await fetch('https://accounts.spotify.com/api/token', authenticationParams);
+        const data = await response.json();
+        
+        // Set the access token
+        accessToken = data.access_token;
+        
+        // Schedule a refresh to get a new access token just before the current one expires
+        const expiresIn = data.expires_in * 1000; // Convert seconds to milliseconds
+        setTimeout(getAccessToken, expiresIn - 60000); // Refresh token 1 minute before it expires
     }
-
-    fetch('https://accounts.spotify.com/api/token', authenticationParams)
-        .then(result => result.json())
-        .then(data => accessToken = data.access_token)
+    
+    // Retrieve initial access token and schedule refresh
+    await getAccessToken();
 
 }
+
+
 
 // Log an error if one occurs when connecting to the database or from the Spotify API
 main().catch(err => console.log(err));
