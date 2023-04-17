@@ -82,8 +82,6 @@ async function main() {
 
 }
 
-
-
 // Log an error if one occurs when connecting to the database or from the Spotify API
 main().catch(err => console.log(err));
 
@@ -91,6 +89,12 @@ main().catch(err => console.log(err));
 app.listen(port, (req, res) => {
     console.log(`Listening at http://localhost:${port}`);
 });
+
+// Listens for a GET request to '/accessToken'
+app.get('/accessToken', async (req, res) => {
+    res.status(200).json(accessToken);
+})
+
 
 // Listens for a GET request to '/search/:artistName'
 app.get('/search/:artist', async (req, res) => {

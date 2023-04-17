@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Image, Container, Row, Col } from 'react-bootstrap'
 import { IoMusicalNotesSharp } from "react-icons/io5";
+import SpotifyWebApi from 'spotify-web-api-js';
 
 class AlbumDetails extends Component {
 
@@ -14,8 +15,11 @@ class AlbumDetails extends Component {
             image: [],
             tracks: [],
             rating: 0,
-            hover: 0
+            hover: 0,
+            accessToken: null
         };
+
+        this.spotifyApi = new SpotifyWebApi();
     }
 
     // Method: Called first when component is mounted into view
@@ -48,8 +52,38 @@ class AlbumDetails extends Component {
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);
             })
+
+        // Get Spotify access token
+        axios.get('http://localhost:4000/accessToken')
+            .then((response) => {
+                const { access_token } = response.data;
+                this.setState({ accessToken: access_token });
+                this.spotifyApi.setAccessToken(access_token);
+            })
+            .catch((error) => {
+                console.error('Error getting Spotify access token:', error);
+            });
     }
 
+    // Play a snippet of a track
+    playTrack(trackId) {
+        const { accessToken } = this.state;
+        if (!accessToken) {
+            console.error('Spotify access token not found.');
+            return;
+        }
+
+        this.spotifyApi.play({
+            uris: [`spotify:track:${trackId}`],
+            position_ms: 10000, // Start playing 10 seconds into the track
+        })
+            .then((response) => {
+                console.log('Track is now playing.');
+            })
+            .catch((error) => {
+                console.error('Error playing track:', error);
+            });
+    }
 
     render() {
 
