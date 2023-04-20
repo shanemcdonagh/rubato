@@ -3,19 +3,16 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const mongoose = require('mongoose');
 const GenreImage = require('./models/genreimage.model')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 require('dotenv').config();
 
 // Specify port for server to run on
-const port = 4000;
+const port = process.env.PORT || 8000;
 
-const path = require('path');
-const { response } = require('express');
-app.use(express.static(path.join(__dirname, '../build')));
-app.use('/static', express.static(path.join(__dirname, 'build//static')));
-
+app.use(express.static(path.join(__dirname, "rubato", "build")))
 app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()) // parse application/json
 
@@ -290,3 +287,7 @@ app.get('/playlists', async (req, res) => {
             res.status(500).json({ message: 'Internal Server Error' });
         });
 })
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "rubato", "build", "index.html"));
+});
