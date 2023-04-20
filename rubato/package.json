@@ -3,21 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.20.13",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.0",
-    "body-parser": "^1.20.1",
     "bootstrap": "^5.2.2",
     "cdbreact": "^1.5.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.7.5",
-    "node-fetch": "^3.3.0",
-    "node-fetch-commonjs": "^3.2.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
@@ -25,7 +16,6 @@
     "react-jwt": "^1.1.8",
     "react-router-dom": "^6.4.3",
     "react-scripts": "^5.0.1",
-    "spotify-web-api-js": "^1.5.2",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4",
     "webpack": "^5.75.0"
@@ -53,10 +43,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "babel-plugin-macros": "^3.1.0",
-    "babel-plugin-styled-components": "^2.0.7",
-    "nodemon": "^2.0.20"
   }
 }
