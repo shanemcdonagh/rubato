@@ -38,6 +38,22 @@ app.use(function (req, res, next) {
     next();
 });
 
+// allow cross-origin requests from the Heroku domain
+const whitelist = ['https://rubato.herokuapp.com', 'http://localhost:3000'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+};
+
+// enable CORS middleware
+app.use(cors(corsOptions));
+
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Used to connect to our MongoDB database
@@ -84,7 +100,7 @@ main().catch(err => console.log(err));
 
 // Server begins listening through port 4000, handles requests from port 3000 (our music application)
 app.listen(port, (req, res) => {
-    console.log(`Listening at http://localhost:${port}`);
+    console.log(`Listening on port ${port}`);
 });
 
 // Listens for a GET request to '/accessToken'
