@@ -10,7 +10,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 require('dotenv').config();
 
 // Specify port for server to run on
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, "rubato", "build")))
 app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
