@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Image, Container, Row, Col } from 'react-bootstrap'
-import { IoMusicalNotesSharp } from "react-icons/io5";
 
 class AlbumDetails extends Component {
 
@@ -12,9 +11,7 @@ class AlbumDetails extends Component {
             album: [],
             artist: [],
             image: [],
-            tracks: [],
-            rating: 0,
-            hover: 0
+            tracks: []
         };
     }
 
@@ -52,7 +49,7 @@ class AlbumDetails extends Component {
 
     render() {
 
-        const { album, image, artist, hover, rating } = this.state
+        const { album, image, artist } = this.state
 
         return (
             <div className="albumDetails">
@@ -60,25 +57,6 @@ class AlbumDetails extends Component {
                     <Image src={image.url} style={{ marginTop: '5vh' }}></Image>
                     <h1><b>{album.name}</b></h1>
                     <h2><b>{artist.name}</b></h2>
-                    {/* https://youtu.be/eDw46GYAIDQ */}
-                    <div className='rating'>
-                        {[...Array(5)].map((note, i) => {
-
-                            const ratingScore = i + 1;
-
-                            return (
-                                <label>
-                                    <input type="radio" name="album-rating" value={ratingScore}
-                                        onClick={() => this.setState({ rating: ratingScore })} />
-
-                                    <IoMusicalNotesSharp className='music-note' size="30"
-                                        color={ratingScore <= (hover || rating) ? "red" : "grey"}
-                                        onMouseEnter={() => this.setState({ hover: ratingScore })}
-                                        onMouseLeave={() => this.setState({ hover: 0 })} />
-                                </label>
-                            )
-                        })}
-                    </div>
                     <Container className="list-item">
                         {this.state.tracks.map(track => (
                             <Row key={track.id} className="listen-list-row">

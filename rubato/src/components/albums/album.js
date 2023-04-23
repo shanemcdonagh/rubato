@@ -34,16 +34,6 @@ class Album extends Component {
             .catch((error) => {
                 console.log(`Unexpected error: ${error}`);
             })
-
-        // Allows us to select a list to add the album to (MOVE THIS TO ALBUMS INSTEAD OF EACH INDIVIDUAL ALBUM)
-        axios.post('/list/retrieveLists', { userID: localStorage.getItem("userID") })
-            .then((response) => {
-                this.setState({ lists: response.data })
-                console.log(this.state.lists)
-            })
-            .catch((error) => {
-                console.log("Cannot retrieve lists from server: " + error);
-            });
     }
 
     handleClick() {
@@ -64,7 +54,7 @@ class Album extends Component {
             image: this.props.album.images[0].url
         }
 
-        const list = this.state.lists.find(list => list._id === listID);
+        const list = this.props.lists.find(list => list._id === listID);
         const listName = list.name;
 
         const diaryEntry = {
@@ -107,10 +97,12 @@ class Album extends Component {
 
     saveRating() {
 
+        const date = new Date(this.props.album.release_date);
         const { album } = this.props;
         const artistName = album.artistName || album.artists[0]?.name;
         const albumName = album.albumName || album.name;
         const image = album.image || album.images[0]?.url || "https://via.placeholder.com/230x230.png?text=Artist+Image";
+        const year = date.getFullYear() || album.year
         const albumID = this.props.album.id || this.props.album.albumID;
 
         console.log(albumID)
@@ -120,6 +112,7 @@ class Album extends Component {
             albumID: albumID,
             artistName: artistName,
             albumName: albumName,
+            year: year,
             image: image,
             rating: this.state.rating,
             userID: localStorage.getItem('userID')

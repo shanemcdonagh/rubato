@@ -53,8 +53,6 @@ router.post('/', async (req, res) => {
         userID: req.body.userID
     })
 
-    console.log(oldReview._id)
-
     if (oldReview) 
     {
         const { rating } = req.body;
@@ -72,6 +70,7 @@ router.post('/', async (req, res) => {
           albumID: req.body.albumID,
           artistName: req.body.artistName,
           albumName: req.body.albumName,
+          year: req.body.year,
           image: req.body.image,
           rating: req.body.rating,
           userID: req.body.userID
