@@ -101,15 +101,15 @@ class Profile extends Component {
           <StyledHeader type="user" className="header">
             <div>
               <div>
-                <div className="header__overline">Profile</div>
-                <h1 className="header__name">{userDetails.name}</h1>
+                <div className="header__overline profileName">Profile</div>
+                <h1 className="username">{userDetails.name}</h1>
                 <Image
                 src={userDetails.image}
                 width="150px"
-                roundedCircle
+                className="profileImage"
               />
               <div>
-                <Button variant="danger" onClick={this.handleEditPicture}>
+                <Button variant="danger" className="editImage" onClick={this.handleEditPicture}>
                     Edit picture
                 </Button>
               </div>

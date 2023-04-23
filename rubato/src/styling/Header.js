@@ -66,6 +66,7 @@ const StyledHeader = styled.header`
     font-size: clamp(2.5rem, 10vw, 6rem);
     font-weight: 900;
     line-height: 1;
+    margin-left: 45%;
     margin: 0 0 var(--spacing-xs) 0;
 
     @media (min-width: 768px) {

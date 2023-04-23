@@ -62,13 +62,6 @@ class Sidebar extends Component {
                         <StyledLoginButton onClick={this.handleLogout}>
                             Logout
                         </StyledLoginButton>
-                        <div className="sidebar-btn-wrapper" style={{ padding: '20px 5px' }}>
-                            <CDBContainer>
-                                <CDBIcon fab icon="facebook" size="lg" />
-                                <CDBIcon fab icon="twitter" size="lg" />
-                                <CDBIcon fab icon="instagram" size="lg" />
-                            </CDBContainer>
-                        </div>
                     </CDBSidebarFooter>
                 </CDBSidebar>
             </div>

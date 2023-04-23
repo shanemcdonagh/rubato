@@ -13,7 +13,6 @@ class Album extends Component {
         this.state = {
             rating: 0,
             hover: 0,
-            lists: [],
             setShow: false
         };
 
@@ -114,19 +113,21 @@ class Album extends Component {
         const image = album.image || album.images[0]?.url || "https://via.placeholder.com/230x230.png?text=Artist+Image";
         const albumID = this.props.album.id || this.props.album.albumID;
 
+        console.log(albumID)
+
 
         const review = {
-            albumID: {albumID},
-            artistName: {artistName},
-            albumName: {albumName},
-            image: {image},
+            albumID: albumID,
+            artistName: artistName,
+            albumName: albumName,
+            image: image,
             rating: this.state.rating,
             userID: localStorage.getItem('userID')
         }
 
         const diaryEntry = {
-            album: {albumName},
-            artist: {artistName},
+            album: albumName,
+            artist: artistName,
             rating: this.state.rating,
             isList: false
         }
@@ -203,12 +204,12 @@ class Album extends Component {
                         <Modal.Title>Add to list</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {this.state.lists.length > 0 ?
+                        {this.props.lists.length > 0 ?
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group className="mb-3" controlId="formBasicList">
                                     <Form.Control as="select" name="selectedList" required>
                                         <option value="">Select a list</option>
-                                        {this.state.lists.map((list) => (
+                                        {this.props.lists.map((list) => (
                                             <option value={list._id}>{list.name}</option>
                                         ))}
                                     </Form.Control>

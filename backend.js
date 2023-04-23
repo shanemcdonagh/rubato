@@ -13,11 +13,13 @@ require('dotenv').config();
 const port = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, "rubato", "build")))
-app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
-app.use(bodyParser.json()) // parse application/json
+app.use(bodyParser.urlencoded({ extended: false , limit: '10mb'})) // parse application/x-www-form-urlencoded
+app.use(bodyParser.json({ limit: '10mb' })) // parse application/json
 
 // Allows for requests and responses to be made over different domains
 app.use(cors());
+
+mongoose.set('strictQuery', false);
 
 const userRoute = require('./routes/User');
 const listRoute = require('./routes/List');

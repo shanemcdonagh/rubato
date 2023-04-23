@@ -222,6 +222,18 @@ input[type="radio"]{
   color: grey;
   font-size: large;
   margin-bottom: 2%;
+  margin-left: 5%;
+}
+
+.topalbums-descriptor{
+  color: grey;
+  font-size: large;
+  margin-bottom: 2%;
+  margin-left: 18%;
+}
+
+.topalbums{
+  margin-left: 18%;
 }
 
 .descriptor{
@@ -254,11 +266,11 @@ input[type="radio"]{
 }
 
 .search-container {
-  margin-left: 15%;
+  margin-left: 8%;
 }
 
 .search-bar-container {
-  margin-left: 20%;
+  margin-left: 18%;
 }
 
 .album {
@@ -283,6 +295,7 @@ input[type="radio"]{
 .listMessage{
   margin-top: 5%;
   margin-right: 4%;
+  margin-bottom: 2%;
 }
 
 .profile{
@@ -291,4 +304,38 @@ input[type="radio"]{
 
 .reviewed{
   margin-right: 25%;
+}
+
+.diaryMessage{
+  margin-top: 5%;
+  margin-right: 4%;
+}
+
+.profileImage{
+  border-radius: 50%;
+}
+
+.profileName{
+  margin-left: 45%;
+}
+
+.username{
+  font-size: clamp(2.5rem, 10vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-left: 45%;
+
+    @media (min-width: 768px) {
+      margin: 0 0 var(--spacing-xs) -5px;
+    }
+}
+
+.profileImage{
+   margin-top: 5%;
+  margin-left: 45%;
+}
+
+.editImage{
+  margin-top: 5%;
+  margin-left: 45%;
 }

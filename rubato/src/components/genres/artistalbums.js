@@ -11,7 +11,8 @@ class ArtistAlbums extends Component {
         super(props);
 
         this.state = {
-            albums: []
+            albums: [],
+            lists: []
         };
     }
 
@@ -33,6 +34,15 @@ class ArtistAlbums extends Component {
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);
             })
+
+        // Allows us to select a list to add the album to
+        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+            .then((response) => {
+                this.setState({ lists: response.data })
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve lists from server: " + error);
+            });
     }
 
     // Method - Visual content of the component
@@ -51,7 +61,7 @@ class ArtistAlbums extends Component {
                                 <td>
                                     <Row className="mx-2 row row-col-4 genre-list">
                                         {this.state.albums.map((album) => {
-                                            return <Album album={album} key={album.id}/>;
+                                            return <Album album={album} key={album.id} lists={this.state.lists} />;
                                         })}
                                     </Row>
                                 </td>

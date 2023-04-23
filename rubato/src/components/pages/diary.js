@@ -28,7 +28,7 @@ class Diary extends Component {
     render() {
         return (
             <div className="diary-component">
-                <h2 className="welcomeMessage"><b>DIARY</b></h2>
+                <h2 className="diaryMessage"><b>DIARY</b></h2>
                 <DiaryEntries entries={this.state.entries}/>
 
                 {this.state.entries.length < 10 && (

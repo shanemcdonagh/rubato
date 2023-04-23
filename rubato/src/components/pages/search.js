@@ -47,7 +47,7 @@ class Search extends Component {
                     <InputGroup className="mb-3 search-bar" size="lg" style={{ width: '50vw' }}>
                         <FormControl
                             type="search"
-                            placeholder="Search"
+                            placeholder="Search for an artist"
                             className="me-2"
                             aria-label="Search"
                             onKeyDown={event => {
@@ -62,21 +62,19 @@ class Search extends Component {
                     </InputGroup>
                 </div>
                 <div>
-
-
-                    {albums.length === 0 && (
+                    {albums.length === 0 ? (
                         <div>
-                            <h2>Not sure where to start?</h2>
-                            <h3 className="playlist-descriptor">See these top albums for inspiration</h3>
+                            <h2 className="topalbums">Not sure where to start?</h2>
+                            <h3 className="topalbums-descriptor">See these top albums for inspiration</h3>
                             <div className="playlists">
                                 <Albums albums={topAlbums} />
                             </div>
                         </div>
+                    ) : (
+                        <div className="playlists">
+                            <Albums albums={albums} />
+                        </div>
                     )}
-
-                    <div className="playlists">
-                        <Albums albums={albums} />
-                    </div>
                 </div>
             </div>
         );

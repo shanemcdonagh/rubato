@@ -12,6 +12,7 @@ class ListenListAlbums extends Component {
 
         this.state = {
             albums: [],
+            lists: [],
             listID: ""
         };
     }
@@ -34,6 +35,15 @@ class ListenListAlbums extends Component {
             .catch((error) => {
                 console.log("Cannot retrieve information from server " + error);
             })
+
+        // Allows us to select a list to add the album to
+        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+            .then((response) => {
+                this.setState({ lists: response.data })
+            })
+            .catch((error) => {
+                console.log("Cannot retrieve lists from server: " + error);
+            });
     }
 
     // Method - Removes album based on its id
@@ -70,10 +80,10 @@ class ListenListAlbums extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <Row className="mx-2 row row-col-4 genre-list">
+                                    <Row className="mx-2 row row-col-4 genre-list" style={{ display: 'flex', flexWrap: 'wrap' }}>
                                         {this.state.albums.map((album) => {
-                                            return <div>
-                                                <Album album={album} />
+                                            return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
+                                                <Album album={album} lists={this.state}/>
                                                 <Button variant="danger" onClick={() => { this.DeleteFromList(album.id) }}>Remove Album</Button>
                                             </div>
                                         })}
