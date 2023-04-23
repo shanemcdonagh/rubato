@@ -25,7 +25,7 @@ class GenreArtists extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/genre/${term}`)
+        axios.get(`/genre/${term}`)
             .then((response) => {
                 this.setState({ artists: response.data })
                 console.log(this.state.artists)

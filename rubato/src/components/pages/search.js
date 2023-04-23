@@ -18,7 +18,7 @@ class Search extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/topAlbums')
+        axios.get('/topAlbums')
             .then((response) => {
 
                 this.setState({ topAlbums: response.data.items })
@@ -29,7 +29,7 @@ class Search extends Component {
     }
 
     search() {
-        axios.get('http://localhost:4000/search/' + this.state.search)
+        axios.get('/search/' + this.state.search)
             .then((response) => {
                 this.setState({ albums: response.data })
             })

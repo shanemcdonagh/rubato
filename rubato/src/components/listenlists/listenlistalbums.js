@@ -28,7 +28,7 @@ class ListenListAlbums extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/list/retrieveListAlbums/${term}`)
+        axios.get(`/list/retrieveListAlbums/${term}`)
             .then((response) => {
                 this.setState({ albums: response.data })
             })
@@ -37,7 +37,7 @@ class ListenListAlbums extends Component {
             })
 
         // Allows us to select a list to add the album to
-        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
             })
@@ -52,7 +52,7 @@ class ListenListAlbums extends Component {
         //REF: https://www.w3schools.com/jsref/met_win_confirm.asp
         if (window.confirm("Are you sure you want to remove this album?") === true) {
 
-            axios.patch("http://localhost:4000/list/deleteAlbum/", { albumID, listID: this.state.listID, userID: localStorage.getItem("userID") })
+            axios.patch("/list/deleteAlbum/", { albumID, listID: this.state.listID, userID: localStorage.getItem("userID") })
                 .then((response) => {
                     console.log(response.data);
 

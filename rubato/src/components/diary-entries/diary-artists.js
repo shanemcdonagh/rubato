@@ -20,7 +20,7 @@ class DiaryArtists extends Component {
     {
         // Promise - Result of an asynchronous operation
         // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/search/topArtists`)
+        axios.get(`/search/topArtists`)
             .then((response) => {
                 this.setState({ artists: response.data })
                 console.log(this.state.artists)

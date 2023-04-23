@@ -27,7 +27,7 @@ class Album extends Component {
 
         const albumID = this.props.album.id || this.props.album.albumID
 
-        axios.post('http://localhost:4000/review/getReview', {albumID, userID: localStorage.getItem('userID') })
+        axios.post('/review/getReview', {albumID, userID: localStorage.getItem('userID') })
             .then((response) => {
                 this.setState({ rating: response.data });
             })
@@ -36,7 +36,7 @@ class Album extends Component {
             })
 
         // Allows us to select a list to add the album to (MOVE THIS TO ALBUMS INSTEAD OF EACH INDIVIDUAL ALBUM)
-        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
                 console.log(this.state.lists)
@@ -74,7 +74,7 @@ class Album extends Component {
             list: listName
         }
 
-        axios.patch('http://localhost:4000/list/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
+        axios.patch('/list/updateList', { userID: localStorage.getItem('userID'), listID, album: this.props.album })
             .then((response) => {
                 this.saveDiaryEntry(diaryEntry); // Add to diary entry
                 console.log("List updated, alongside diary entry:  " + response.data);
@@ -96,7 +96,7 @@ class Album extends Component {
             diaryEntry = listEntry
         }
 
-        axios.post('http://localhost:4000/diary/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
+        axios.post('/diary/createDiaryEntry', { diaryEntry, userID: localStorage.getItem("userID") })
             .then((response) => {
                 console.log(response)
             })
@@ -132,7 +132,7 @@ class Album extends Component {
             isList: false
         }
 
-        axios.post('http://localhost:4000/review', review)
+        axios.post('/review', review)
             .then((response) => {
 
                 // Add to diary entry

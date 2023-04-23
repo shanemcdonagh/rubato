@@ -15,7 +15,7 @@ class Home extends Component {
     componentDidMount() {
         // Promise - Result of an asynchronous operation
         // Axios - Promise based HTTP client
-        axios.get('http://localhost:4000/home')
+        axios.get('/home')
             .then((response) => {
                 console.log(response.data)
                 this.setState({ genres: response.data })

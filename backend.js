@@ -114,12 +114,15 @@ async function main() {
 // Log an error if one occurs when connecting to the database or from the Spotify API
 main().catch(err => console.log(err));
 
+// If the application is in production
+if(process.env.NODE_ENV === "production")
+{
+    app.use(express.static("rubato/build"));
 
-app.use(express.static("rubato/build"));
-
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "rubato", "build", "index.html"));
-});
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "rubato", "build", "index.html"));
+    });
+}
 
 // Server begins listening through port 4000, handles requests from port 3000 (our music application)
 app.listen(port, (req, res) => {

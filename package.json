@@ -2,7 +2,7 @@
   "name": "mern-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "backend.js",
   "dependencies": {
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",

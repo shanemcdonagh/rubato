@@ -23,7 +23,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    axios.post("http://localhost:4000/user/userDetails", {
+    axios.post("/user/userDetails", {
         userID: localStorage.getItem("userID")
       })
       .then(response => {
@@ -74,7 +74,7 @@ class Profile extends Component {
     reader.readAsDataURL(newPictureFile);
     reader.onload = () => {
       axios
-        .patch(`http://localhost:4000/user/updateProfilePicture`, {
+        .patch(`/user/updateProfilePicture`, {
           userID: localStorage.getItem("userID"),
           image: reader.result
         })

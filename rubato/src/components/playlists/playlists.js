@@ -21,7 +21,7 @@ class Playlists extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/playlists`)
+        axios.get(`/playlists`)
             .then((response) => {
                 this.setState({ playlists: response.data.playlists.items, dayOfWeek: response.data.message})
                 console.log(this.state.playlists)

@@ -20,7 +20,7 @@ class ListenList extends Component {
         //REF: https://www.w3schools.com/jsref/met_win_confirm.asp
         if (window.confirm("Are you sure you want to remove this list?") === true) {
 
-            axios.patch("http://localhost:4000/list/deleteList/", { name: this.props.list.name, userID: localStorage.getItem("userID") })
+            axios.patch("/list/deleteList/", { name: this.props.list.name, userID: localStorage.getItem("userID") })
                 .then((response) => {
                     // If successful, set deleted state to true
                     this.setState({ deleted: true });

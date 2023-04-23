@@ -26,7 +26,7 @@ class ArtistAlbums extends Component {
 
         // // Promise - Result of an asynchronous operation
         // // Axios - Promise based HTTP client
-        axios.get(`http://localhost:4000/search/${term}`)
+        axios.get(`/search/${term}`)
             .then((response) => {
                 this.setState({ albums: response.data })
                 console.log(this.state.albums)
@@ -36,7 +36,7 @@ class ArtistAlbums extends Component {
             })
 
         // Allows us to select a list to add the album to
-        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
             })

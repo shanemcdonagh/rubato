@@ -16,7 +16,7 @@ class Albums extends Component {
     componentDidMount() {
 
         // Allows us to select a list to add the album to
-        axios.post('http://localhost:4000/list/retrieveLists', { userID: localStorage.getItem("userID") })
+        axios.post('/list/retrieveLists', { userID: localStorage.getItem("userID") })
             .then((response) => {
                 this.setState({ lists: response.data })
             })
