@@ -39,19 +39,19 @@ app.use(function (req, res, next) {
 });
 
 // allow cross-origin requests from the Heroku domain
-const whitelist = ['https://rubato.herokuapp.com', 'http://localhost:3000'];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-};
+// const whitelist = ['https://rubato.herokuapp.com', 'http://localhost:3000'];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// };
 
 // enable CORS middleware
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -77,17 +77,34 @@ async function main() {
             },
             body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
         }
-        
-        // Make a request to the Spotify API to get an access token
-        const response = await fetch('https://accounts.spotify.com/api/token', authenticationParams);
-        const data = await response.json();
-        
-        // Set the access token
-        accessToken = data.access_token;
-        
-        // Schedule a refresh to get a new access token just before the current one expires
-        const expiresIn = data.expires_in * 1000; // Convert seconds to milliseconds
-        setTimeout(getAccessToken, expiresIn - 60000); // Refresh token 1 minute before it expires
+    
+        let retries = 0;
+        while (true) {
+            try {
+                // Make a request to the Spotify API to get an access token
+                const response = await fetch('https://accounts.spotify.com/api/token', authenticationParams);
+                const data = await response.json();
+    
+                // Set the access token
+                accessToken = data.access_token;
+    
+                // Schedule a refresh to get a new access token just before the current one expires
+                const expiresIn = data.expires_in * 1000; // Convert seconds to milliseconds
+                setTimeout(getAccessToken, expiresIn - 60000); // Refresh token 1 minute before it expires
+    
+                // Break out of the loop and return the token
+                break;
+            } catch (error) {
+                // If an error is thrown, retry the request up to 3 times
+                if (retries < 3) {
+                    retries++;
+                    console.log('Error getting access token, retrying...', error);
+                } else {
+                    console.log('Error getting access token after 3 retries', error);
+                    break;
+                }
+            }
+        }
     }
     
     // Retrieve initial access token and schedule refresh

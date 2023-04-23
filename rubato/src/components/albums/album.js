@@ -155,11 +155,12 @@ class Album extends Component {
         const albumID = this.props.album.id || this.props.album.albumID
         
         return (
-            <div>
+            <>
                 <Card
                     bg="dark"
                     text="danger"
-                    className="mb-2 album-wrapper" key={albumID}>
+                    style={{ width: '18rem', marginLeft: '1%' }}
+                    className="mb-2 genre-card" key={albumID}>
                     <Card.Header>{artistName}</Card.Header>
                     <Card.Body>
                         <Card.Img src={image} width="230.4px" height="230.4px" />
@@ -197,7 +198,6 @@ class Album extends Component {
 
                     </Card.Body>
                 </Card>
-
                 <Modal className="modal" show={setShow} onHide={this.handleClick} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Add to list</Modal.Title>
@@ -220,7 +220,7 @@ class Album extends Component {
                         }
                     </Modal.Body>
                 </Modal>
-            </div>
+            </>
         )
     }
 }
