@@ -55,9 +55,6 @@ app.use(function (req, res, next) {
 // enable CORS middleware
 //app.use(cors(corsOptions));
 
-
-app.use(express.static(path.join(__dirname, 'build')));
-
 // Used to connect to our MongoDB database
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
@@ -116,6 +113,13 @@ async function main() {
 
 // Log an error if one occurs when connecting to the database or from the Spotify API
 main().catch(err => console.log(err));
+
+
+app.use(express.static("rubato/build"));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "rubato", "build", "index.html"));
+});
 
 // Server begins listening through port 4000, handles requests from port 3000 (our music application)
 app.listen(port, (req, res) => {
@@ -322,7 +326,3 @@ app.get('/playlists', async (req, res) => {
             res.status(500).json({ message: 'Internal Server Error' });
         });
 })
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "rubato", "build", "index.html"));
-});
