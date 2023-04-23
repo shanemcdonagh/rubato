@@ -40,21 +40,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// allow cross-origin requests from the Heroku domain
-// const whitelist = ['https://rubato.herokuapp.com', 'http://localhost:3000'];
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// };
-
-// enable CORS middleware
-//app.use(cors(corsOptions));
-
 // Used to connect to our MongoDB database
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
@@ -184,6 +169,7 @@ app.get('/home', async (req, res) => {
                 // Return an object with the genre seed and image URL
                 return { genre: genre, url: genreImage ? genreImage.url : "https://via.placeholder.com/230x230.png?text=Genre+Image" };
             });
+            console.log(data);
             res.status(200).json(matchedGenres);
         })
         .catch(error => {
