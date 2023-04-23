@@ -6,9 +6,12 @@ import Genre from './genre';
 
 // Class Plants - Extends Component class
 class Genres extends Component {
+    
 
     // Method - Visual content of the component
     render() {
+
+        console.log(this.props.genres)
         return (
             <div className='genres'>
                 <Container>
