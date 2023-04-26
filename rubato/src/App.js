@@ -2,10 +2,8 @@ import './styling/App.css';
 import React, { Component, useEffect } from 'react';
 
 // Local Components to import
-
 import Lists from './components/pages/lists';
 import { Navbar } from 'react-bootstrap';
-
 
 // Allows for dynamic routing and switching between components
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";

@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
     else 
     {
         // Make sure the userID is empty
-        userID = user._id.toString();
+        userID = "";
 
         return res.json("Error logging in")
     }

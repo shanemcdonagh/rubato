@@ -44,13 +44,16 @@ class Login extends Component {
                 alert('Login successful')
                 window.location.href = '/'
             }
-            else
+        })
+        .catch((error) => {
+            if(error.response.status == 500)
             {
                 alert('Please check your username or password')
             }
-        })
-        .catch((error) => {
-            console.log("Cannot retrieve information from server " + error);
+            else
+            {
+                console.log("Cannot retrieve information from server " + error);
+            }
         })
       }
 
